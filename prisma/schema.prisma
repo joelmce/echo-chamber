@@ -8,8 +8,10 @@ datasource db {
 }
 
 model Room {
-  roomId Int    @id @default(autoincrement())
-  users  User[]
+  roomId Int @id @default(autoincrement())
+
+  // A room can have many Users connected to it.
+  users User[]
 }
 
 model User {
