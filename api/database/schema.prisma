@@ -8,22 +8,24 @@ datasource db {
 }
 
 model Room {
-  roomId Int @id @default(autoincrement())
+  roomId   Int    @id @default(autoincrement())
+  roomName String
 
-  // A room can have many Users connected to it.
-  users User[]
+  users    User[]
+  playlist Playlist?
 }
 
 model Song {
-  songId    String     @id
-  songLink  String
-  playlists Playlist[]
+  songId   String @id
+  songLink String
 }
 
 model Playlist {
   playlistId   Int    @id @default(autoincrement())
   playlistName String
-  songs        Song[]
+  songs        Json[]
+  room         Room   @relation(fields: [roomId], references: [roomId])
+  roomId       Int    @unique
 }
 
 model User {
@@ -31,6 +33,6 @@ model User {
   createdAt     DateTime @default(now())
   username      String   @db.VarChar(80)
   hash          String   @db.VarChar(255)
-  connectedRoom Room     @relation(fields: [roomId], references: [roomId])
+  connectedRoom Room?    @relation(fields: [roomId], references: [roomId])
   roomId        Int
 }
