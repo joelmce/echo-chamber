@@ -53,7 +53,6 @@ function renderChat() {
         if (message.trim() !== '') {
             if (socket.readyState === WebSocket.OPEN) {
                 socket.send(message);
-                console.log(message);
                 chatField.value = '';
             } else {
                 console.log('WebSocket is not in OPEN state');

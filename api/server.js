@@ -26,8 +26,9 @@ wss.on('connection', (socket) => {
   socket.on('message', (message) => {
     wss.clients.forEach((client) => {
       if (client.readyState === WebSocket.OPEN) {
-        console.log(message);
-        client.send(JSON.stringify(message));
+        const text = JSON.stringify(message);
+        console.log(text);
+        client.send(text);
       }
     });
   });
