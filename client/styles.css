@@ -3,6 +3,7 @@
     margin: 0 auto;
 }
 body {
+    font-family: 'Fira Code', monospace;
     background-color: black;
 }
 #page-container {
@@ -54,6 +55,7 @@ body {
     border: 2px solid black;
     border-radius: 5px;
     background-color: #DBD8F0;
+    font-family: 'Fira Code', monospace;
 }
 .enter-btn {
     padding: 15px;
@@ -61,6 +63,7 @@ body {
     border: 2px solid black;
     border-radius: 5px;
     background-color: #DBD8F0;
+    font-family: 'Fira Code', monospace;
 }
 .msg-display {
     height: auto;

@@ -31,11 +31,33 @@ function renderChat() {
     chatContainer.appendChild(chatWrapper);
     pageContainer.appendChild(chatContainer);
 
+    const socket = new WebSocket('ws://localhost:3000');
+
+    socket.addEventListener('open', (event) => {
+        console.log('WebSocket connection opened');
+    });
+
+    socket.addEventListener('message', async (event) => {
+        const messageData = JSON.parse(event.data);
+
+        if (messageData.type === 'Buffer') {
+            const bufferData = new Uint8Array(messageData.data);
+            const text = new TextDecoder().decode(bufferData);
+            console.log('Message from server:', text);
+            displayMessage(text);
+        }
+    });
+
     enterBtn.addEventListener('click', () => {
         const message = chatField.value;
         if (message.trim() !== '') {
-            displayMessage(message);
-            chatField.value = '';
+            if (socket.readyState === WebSocket.OPEN) {
+                socket.send(message);
+                console.log(message);
+                chatField.value = '';
+            } else {
+                console.log('WebSocket is not in OPEN state');
+            }
         }
     });
 }
