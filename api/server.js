@@ -3,6 +3,7 @@ const path = require('path');
 const userRouter = require('./routes/userRouter');
 const playlistRouter = require('./routes/playlistRouter');
 const roomRouter = require('./routes/roomRouter');
+const messageRouter = require('./routes/messageRouter');
 
 const WebSocket = require('ws');
 
@@ -39,6 +40,7 @@ wss.on('connection', (socket) => {
 app.use('/api/users', userRouter);
 app.use('/api/playlist', playlistRouter);
 app.use('/api/room', roomRouter);
+app.use('/api/message', messageRouter);
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'client', 'index.html'));
