@@ -18,6 +18,7 @@ function renderChat() {
 
     const enterBtn = newE('button')
     enterBtn.className = 'enter-btn';
+    enterBtn.innerHTML = 'enter';
 
     chatInput.appendChild(chatField);
     chatInput.appendChild(enterBtn);
