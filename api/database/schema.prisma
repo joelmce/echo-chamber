@@ -8,10 +8,24 @@ datasource db {
 }
 
 model Room {
-  roomId Int @id @default(autoincrement())
+  roomId   Int    @id @default(autoincrement())
+  roomName String
 
-  // A room can have many Users connected to it.
-  users User[]
+  users    User[]
+  playlist Playlist?
+}
+
+model Song {
+  songId   String @id
+  songLink String
+}
+
+model Playlist {
+  playlistId   Int    @id @default(autoincrement())
+  playlistName String
+  songs        Json[]
+  room         Room   @relation(fields: [roomId], references: [roomId])
+  roomId       Int    @unique
 }
 
 model User {
