@@ -13,6 +13,7 @@ model Room {
 
   users    User[]
   playlist Playlist?
+  Message  Message[]
 }
 
 model Playlist {
@@ -24,10 +25,20 @@ model Playlist {
 }
 
 model User {
-  userId        Int      @id @default(autoincrement())
-  createdAt     DateTime @default(now())
-  username      String   @db.VarChar(80)
-  hash          String   @db.VarChar(255)
+  userId        Int       @id @default(autoincrement())
+  createdAt     DateTime  @default(now())
+  username      String    @db.VarChar(80)
+  hash          String    @db.VarChar(255)
   connectedRoom Room?     @relation(fields: [roomId], references: [roomId])
   roomId        Int?
+  Message       Message[]
+}
+
+model Message {
+  messageId      Int    @id @default(autoincrement())
+  messageContent String
+  messageAuthor  User   @relation(fields: [authorId], references: [userId])
+  authorId       Int
+  room           Room?  @relation(fields: [roomId], references: [roomId])
+  roomId         Int
 }

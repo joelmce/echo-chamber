@@ -10,6 +10,8 @@ app.use('/api/users', userRouter);
 app.use('/api/playlist', playlistRouter);
 app.use('/api/room', roomRouter);
 
+app.use(express.static('../client'));
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
