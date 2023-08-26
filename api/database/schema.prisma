@@ -14,6 +14,18 @@ model Room {
   users User[]
 }
 
+model Song {
+  songId    String     @id
+  songLink  String
+  playlists Playlist[]
+}
+
+model Playlist {
+  playlistId   Int    @id @default(autoincrement())
+  playlistName String
+  songs        Song[]
+}
+
 model User {
   userId        Int      @id @default(autoincrement())
   createdAt     DateTime @default(now())
