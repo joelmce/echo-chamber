@@ -9,6 +9,10 @@ function renderChat() {
     const chatWrapper = newE('div')
     chatWrapper.className = 'chat-wrapper';
 
+    const msgDisplay = newE('div')
+    msgDisplay.className = 'msg-display';
+
+
     const chatInput = newE('div')
     chatInput.className = 'chat-input';
 
@@ -20,11 +24,30 @@ function renderChat() {
     enterBtn.className = 'enter-btn';
     enterBtn.innerHTML = 'enter';
 
+    chatWrapper.appendChild(msgDisplay);
     chatInput.appendChild(chatField);
     chatInput.appendChild(enterBtn);
     chatWrapper.appendChild(chatInput);
     chatContainer.appendChild(chatWrapper);
     pageContainer.appendChild(chatContainer);
+
+    enterBtn.addEventListener('click', () => {
+        const message = chatField.value;
+        if (message.trim() !== '') {
+            displayMessage(message);
+            chatField.value = '';
+        }
+    });
+}
+
+function displayMessage(message) {
+    const msgDisplay = document.querySelector('.msg-display');
+
+    const messageP = document.createElement('p');
+    messageP.className = 'message';
+    messageP.textContent = message;
+
+    msgDisplay.append(messageP);
 }
 
 export default renderChat;
