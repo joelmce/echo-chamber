@@ -67,7 +67,7 @@ function displayMessage(message) {
 
     const messageP = document.createElement('p');
     messageP.className = 'message';
-    messageP.textContent = message;
+    messageP.textContent = `guest: ${message}`;
 
     msgDisplay.append(messageP);
 }

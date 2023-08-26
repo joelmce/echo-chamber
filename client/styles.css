@@ -12,38 +12,36 @@ body {
     justify-content: center;
     width: 1000px;
     height: 100vh;
-    background-color: aliceblue;
+    background-color: whitesmoke;
 }
 .chat-container {
     display: flex;
     flex-direction: column;
-    border: 2px solid black;
-    border-radius: 15px;
-    background-color: #EAC5D8;
-    height: 90vh;
-    width: 700px;
+    border: 2px dashed cyan;
+    height: 75vh;
+    width: 70%;
 }
 .chat-wrapper {
-    height: 80%;
+    height: 100%;
     width: 80%;
-    background-color: #DBD8F0;
-    margin: auto;
+    padding: 10px;
+    background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);    margin: 70px auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     border: 2px solid black;
-    border-radius: 25px;
+    border-radius: 15px;
 
 }
 .chat-input {
     display: flex;
     width:  90%;
-    height: 100px;
-    background-color: #AFBED1;
+    height: 13%;
+    background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
     margin-bottom: 20px;
     align-items: center;
     border: 2px solid black;
-    border-radius: 25px;
+    border-radius: 10px;
 }
 #whitespace {
     height: 50px;
@@ -51,18 +49,18 @@ body {
 }
 .chat-field {
     padding: 15px;
-    width: 300px;
+    width: 62%;
     border: 2px solid black;
     border-radius: 5px;
-    background-color: #DBD8F0;
+    background-color: aliceblue;
     font-family: 'Fira Code', monospace;
 }
 .enter-btn {
     padding: 15px;
-    width: 95px;
+    width: 22%;
     border: 2px solid black;
     border-radius: 5px;
-    background-color: #DBD8F0;
+    background-color: aliceblue;
     font-family: 'Fira Code', monospace;
 }
 .msg-display {
@@ -73,6 +71,11 @@ body {
     overflow: auto;
     margin-top: 25px;
 }
-.message {
-    padding-bottom: 10px;
+p.message {
+    margin-left: 0;
+    width: max-content;
+    padding: 7px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #00C9FF 0%, #92FE9D 100%);
 }
