@@ -12,7 +12,7 @@ const router = express.Router();
  * @returns {Object} allUsers: A json object with the data
  */
 router.get('/:playlistId', getSongsInPlaylist);
-// router.post('/:playlistId', addSongToPlaylist);
-router.post('/new', newPlaylist);
+router.post('/:id', addSongToPlaylist);
+router.post('/', newPlaylist);
 
 module.exports = router;

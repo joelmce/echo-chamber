@@ -12,7 +12,7 @@ const router = express.Router();
  * @returns {Object} allUsers: A json object with the data
  */
 router.get('/', getAllRooms);
-// router.get('/:id', getRoomById);
-router.post('/new', createRoom);
+router.get('/:id', getRoomById);
+router.post('/', createRoom);
 
 module.exports = router;

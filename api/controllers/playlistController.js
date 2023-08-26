@@ -43,21 +43,19 @@ async function getSongsInPlaylist(req, res) {
  * Add a song to a playlist
  */
 async function addSongToPlaylist(req, res) {
-  const { playlistId } = req.params;
+  const { id } = req.params;
   const { songLink, songName } = req.body;
 
   const addSong = await prisma.playlist.update({
     where: {
-      playlistId: Number(playlistId),
+      playlistId: Number(id),
     },
     data: {
       songs: {
-        push: [
-          {
-            songName: songName,
-            songLink: songLink,
-          },
-        ],
+        push: {
+          songName: songName,
+          songLink: songLink,
+        },
       },
     },
   });

@@ -18,7 +18,8 @@ async function createRoom(req, res) {
 }
 
 async function getRoomById(req, res) {
-  const { roomId } = req.params;
+  const roomId = req.params.id;
+  console.log(roomId);
   const room = await prisma.room.findUnique({
     where: {
       roomId: Number(roomId),
