@@ -1,13 +1,17 @@
 const express = require('express');
-const { getAllUsers, getUserById } = require('../controllers/usersController');
+const {
+  getAllUsers,
+  getUserById,
+  createUser,
+  deleteUser,
+} = require('../controllers/usersController');
 
 const router = express.Router();
 
-/**
- * Query the database for all the registers users
- * @returns {Object} allUsers: A json object with the data
- */
 router.get('/', getAllUsers);
 router.get('/:id', getUserById);
+router.post('/', createUser);
+router.delete('/:id', deleteUser);
+// TODO: router.put('/:id', updateUser);
 
 module.exports = router;

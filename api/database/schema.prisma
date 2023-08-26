@@ -8,17 +8,37 @@ datasource db {
 }
 
 model Room {
-  roomId Int @id @default(autoincrement())
+  roomId   Int    @id @default(autoincrement())
+  roomName String
 
-  // A room can have many Users connected to it.
-  users User[]
+  users    User[]
+  playlist Playlist?
+  Message  Message[]
+}
+
+model Playlist {
+  playlistId   Int    @id @default(autoincrement())
+  playlistName String
+  songs        Json[]
+  room         Room   @relation(fields: [roomId], references: [roomId])
+  roomId       Int    @unique
 }
 
 model User {
-  userId        Int      @id @default(autoincrement())
-  createdAt     DateTime @default(now())
-  username      String   @db.VarChar(80)
-  hash          String   @db.VarChar(255)
-  connectedRoom Room     @relation(fields: [roomId], references: [roomId])
-  roomId        Int
+  userId        Int       @id @default(autoincrement())
+  createdAt     DateTime  @default(now())
+  username      String    @db.VarChar(80)
+  hash          String    @db.VarChar(255)
+  connectedRoom Room?     @relation(fields: [roomId], references: [roomId])
+  roomId        Int?
+  Message       Message[]
+}
+
+model Message {
+  messageId      Int    @id @default(autoincrement())
+  messageContent String
+  messageAuthor  User   @relation(fields: [authorId], references: [userId])
+  authorId       Int
+  room           Room?  @relation(fields: [roomId], references: [roomId])
+  roomId         Int
 }
