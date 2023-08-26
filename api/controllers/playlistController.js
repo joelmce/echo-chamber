@@ -1,4 +1,21 @@
-const prisma = require("../database/prismaClient");
+const prisma = require('../database/prismaClient');
+
+async function newPlaylist(req, res) {
+  const { playlistName, roomId } = req.body;
+
+  const playlist = await prisma.playlist.create({
+    data: {
+      playlistName: playlistName,
+      room: {
+        connect: {
+          roomId: roomId,
+        },
+      },
+    },
+  });
+
+  res.json(playlist);
+}
 
 /**
  * GET /api/playlist/:id
@@ -51,4 +68,5 @@ async function addSongToPlaylist(req, res) {
 module.exports = {
   getSongsInPlaylist,
   addSongToPlaylist,
+  newPlaylist,
 };
