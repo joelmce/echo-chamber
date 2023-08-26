@@ -1,4 +1,5 @@
-const prisma = require("../database/prismaClient");
+const prisma = require('../database/prismaClient');
+const { generateHash } = require('../helpers/bcrypt');
 
 async function getAllUsers(req, res) {
   const allUsers = await prisma.user.findMany();
@@ -8,18 +9,47 @@ async function getAllUsers(req, res) {
 async function getUserById(req, res) {
   const { id } = req.params;
 
-  const user = prisma.user.findUnique({
+  const user = await prisma.user.findUnique({
     where: {
-      id: Number(id),
+      userId: Number(id),
     },
   });
+
+  console.log(user);
 
   res.json(user);
 }
 
-async function newUser(req, res) {}
+async function createUser(req, res) {
+  const { username, password } = req.body;
+
+  const user = {
+    username,
+    hash: generateHash(password),
+  };
+
+  const newUser = await prisma.user.create({ data: user });
+
+  res.json(newUser);
+}
+
+async function deleteUser(req, res) {
+  const { id } = req.params;
+
+  const deletedUser = await prisma.user.delete({
+    where: {
+      userId: Number(id),
+    },
+  });
+
+  res.json(deletedUser);
+}
+
+// TODO: updateUser
 
 module.exports = {
   getAllUsers,
   getUserById,
+  createUser,
+  deleteUser,
 };

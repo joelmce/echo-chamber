@@ -28,6 +28,6 @@ model User {
   createdAt     DateTime @default(now())
   username      String   @db.VarChar(80)
   hash          String   @db.VarChar(255)
-  connectedRoom Room?    @relation(fields: [roomId], references: [roomId])
-  roomId        Int
+  connectedRoom Room?     @relation(fields: [roomId], references: [roomId])
+  roomId        Int?
 }
