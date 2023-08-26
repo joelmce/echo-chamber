@@ -69,6 +69,13 @@ function displayMessage(message) {
     messageP.textContent = `guest: ${message}`;
 
     msgDisplay.insertBefore(messageP, msgDisplay.firstChild);
+
+    messageP.style.opacity = '0';
+    messageP.offsetHeight;
+
+    requestAnimationFrame(() => {
+        messageP.style.opacity = '1';
+    });
 }
 
 export default renderChat;
