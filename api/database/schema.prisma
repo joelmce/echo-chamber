@@ -15,11 +15,6 @@ model Room {
   playlist Playlist?
 }
 
-model Song {
-  songId   String @id
-  songLink String
-}
-
 model Playlist {
   playlistId   Int    @id @default(autoincrement())
   playlistName String
