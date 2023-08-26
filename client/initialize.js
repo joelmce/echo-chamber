@@ -1,3 +1,3 @@
-import renderChat from "./components/chatComponent.js";
+import renderChat from './components/chatComponent.js';
 
 renderChat();
