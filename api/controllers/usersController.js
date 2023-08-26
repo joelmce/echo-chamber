@@ -1,4 +1,4 @@
-const prisma = require('../database/prismaClient');
+const prisma = require("../database/prismaClient");
 
 async function getAllUsers(req, res) {
   const allUsers = await prisma.user.findMany();
@@ -16,6 +16,8 @@ async function getUserById(req, res) {
 
   res.json(user);
 }
+
+async function newUser(req, res) {}
 
 module.exports = {
   getAllUsers,
