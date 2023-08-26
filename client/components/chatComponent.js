@@ -69,7 +69,7 @@ function displayMessage(message) {
     messageP.className = 'message';
     messageP.textContent = `guest: ${message}`;
 
-    msgDisplay.append(messageP);
+    msgDisplay.insertBefore(messageP, msgDisplay.firstChild);
 }
 
 export default renderChat;
