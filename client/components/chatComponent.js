@@ -3,8 +3,6 @@ function renderChat(room) {
     const pageContainer = document.getElementById('page-container');
     const newE = tag => document.createElement(tag);
 
-    pageContainer.innerHTML = '';
-
     const chatContainer = newE('div')
     chatContainer.className = 'chat-container';
 
@@ -13,7 +11,6 @@ function renderChat(room) {
 
     const msgDisplay = newE('div')
     msgDisplay.className = 'msg-display';
-
 
     const chatForm = newE('form')
     chatForm.className = 'chat-input';
