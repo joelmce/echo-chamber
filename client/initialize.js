@@ -1,3 +1,24 @@
 import renderChat from './components/chatComponent.js';
+import renderPlaylist from "./components/playlistComponent.js";
 
-renderChat(1);
+function renderPage(room) {
+    const pageContainer = document.getElementById("page-container");
+    pageContainer.innerHTML = '';
+
+    const componentsWrapper = document.createElement('div');
+    componentsWrapper.className = 'components-wrapper';
+
+    const chatContainer = document.createElement('div');
+    chatContainer.className = 'chat-component';
+    renderChat(room, chatContainer);
+    componentsWrapper.appendChild(chatContainer);
+
+    const playlistContainer = document.createElement('div');
+    playlistContainer.className = 'playlist-component';
+    renderPlaylist(room, playlistContainer);
+    componentsWrapper.appendChild(playlistContainer);
+
+    pageContainer.appendChild(componentsWrapper);
+}
+
+renderPage(1);
