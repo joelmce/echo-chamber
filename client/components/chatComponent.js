@@ -35,6 +35,18 @@ function renderChat(room) {
     chatContainer.appendChild(chatWrapper);
     pageContainer.appendChild(chatContainer);
 
+    const existingMsgs = loadMessages(room)
+        .then(messages => {
+            msgDisplay.innerHTML = '';
+            messages.forEach(message => {
+                displayMessage(message.messageContent, room)
+            })
+            console.log('fetched messages array:', messages);
+        })
+        .catch(error => {
+            console.error('error loading messages', error);
+        });
+
     const socket = new WebSocket('ws://localhost:3000');
 
     socket.addEventListener('open', (event) => {
@@ -49,6 +61,7 @@ function renderChat(room) {
             const text = new TextDecoder().decode(bufferData);
             console.log('Message from server:', text);
             displayMessage(text, room);
+            sendMessage(text, room);
         }
     });
 
@@ -87,19 +100,41 @@ function displayMessage(message, room) {
 function loadMessages(room) {
     const url = `http://localhost:3000/api/message/${room}`;
 
-    fetch(url)
+    return fetch(url)
         .then(response => {
             if (!response.ok) {
                 throw new Error('no response from db');
             }
             return response.json();
         })
-        .then(messages => {
-            console.log('fetched messages:', messages);
-        })
         .catch(error => {
             console.error('error fetching messages', error);
+            throw error;
         });
 }
+
+function sendMessage(message, room) {
+    const messageData = {
+        authorId: 1,
+        roomId: room,
+        content: message
+    };
+
+    fetch('http://localhost:3000/api/message', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(messageData)
+        })
+        .then(response => response.json())
+        .then(newMessage => {
+            console.log('new message:', newMessage);
+        })
+        .catch(error => {
+            console.error('error adding msg to db:', error);
+        });
+}
+
 
 export default renderChat;
