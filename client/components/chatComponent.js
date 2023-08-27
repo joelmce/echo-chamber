@@ -3,6 +3,8 @@ function renderChat(room) {
     const pageContainer = document.getElementById('page-container');
     const newE = tag => document.createElement(tag);
 
+    pageContainer.innerHTML = '';
+
     const chatContainer = newE('div')
     chatContainer.className = 'chat-container';
 
@@ -73,7 +75,6 @@ function displayMessage(message, room) {
     messageP.textContent = `guest: ${message}`;
 
     msgDisplay.insertBefore(messageP, msgDisplay.firstChild);
-    dbLogMessage(message, room);
 
     messageP.style.opacity = '0';
     messageP.offsetHeight;
@@ -83,8 +84,22 @@ function displayMessage(message, room) {
     });
 }
 
-function dbLogMessage(message) {
+function loadMessages(room) {
+    const url = `http://localhost:3000/api/message/${room}`;
 
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('no response from db');
+            }
+            return response.json();
+        })
+        .then(messages => {
+            console.log('fetched messages:', messages);
+        })
+        .catch(error => {
+            console.error('error fetching messages', error);
+        });
 }
 
 export default renderChat;

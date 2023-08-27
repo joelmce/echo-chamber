@@ -1,3 +1,3 @@
 import renderChat from './components/chatComponent.js';
 
-renderChat('home');
+renderChat(1);
