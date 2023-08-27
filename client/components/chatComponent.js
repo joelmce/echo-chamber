@@ -44,13 +44,13 @@ function renderChat(room) {
             console.error('error loading messages', error);
         });
 
-    const socket = new WebSocket('ws://localhost:3000');
+    const chatSocket = new WebSocket('ws://localhost:3000/chat');
 
-    socket.addEventListener('open', (event) => {
+    chatSocket.addEventListener('open', (event) => {
         console.log('WebSocket connection opened');
     });
 
-    socket.addEventListener('message', async (event) => {
+    chatSocket.addEventListener('message', async (event) => {
         const messageData = JSON.parse(event.data);
 
         if (messageData.type === 'Buffer') {
@@ -66,8 +66,8 @@ function renderChat(room) {
         event.preventDefault();
         const message = chatField.value;
         if (message.trim() !== '') {
-            if (socket.readyState === WebSocket.OPEN) {
-                socket.send(message);
+            if (chatSocket.readyState === WebSocket.OPEN) {
+                chatSocket.send(message);
                 chatField.value = '';
             } else {
                 console.log('WebSocket is not in OPEN state');
