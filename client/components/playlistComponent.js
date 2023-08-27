@@ -21,7 +21,7 @@ function renderPlaylist(room) {
 
     const enterBtn = newE('button')
     enterBtn.className = 'enter-btn';
-    enterBtn.innerHTML = 'queue song';
+    enterBtn.innerHTML = 'queue';
 
     searchForm.appendChild(searchField);
     searchForm.appendChild(enterBtn);
@@ -64,11 +64,24 @@ function renderPlaylist(room) {
 function addSongToQ(song) {
     console.log("song incoming...:", song);
     const qDisplay = document.querySelector('.que-display');
+    const songContainer = document.createElement('div');
+    songContainer.className = 'song-container';
+
     const songP = document.createElement('p');
     songP.textContent = song;
     songP.className = 'songQ';
 
-    qDisplay.insertBefore(songP, qDisplay.firstChild);
+    const upVote = document.createElement('button');
+    upVote.className = 'upvote';
+
+    const downVote = document.createElement('button');
+    downVote.className = 'downvote';
+
+    songP.append(upVote, downVote);
+
+    songContainer.append(songP);
+
+    qDisplay.appendChild(songContainer);
 }
 
 export default renderPlaylist;

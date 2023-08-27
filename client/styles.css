@@ -47,7 +47,7 @@ body {
 .playlist-wrapper {
     height: 100%;
     max-height: 60vh;
-    width: 75%;
+    width: 90%;
     padding: 10px;
     margin-top: 70px;
     margin-right: 50px;
@@ -87,6 +87,9 @@ body {
     border-radius: 5px;
     background-color: aliceblue;
     font-family: 'Fira Code', monospace;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
 }
 .enter-btn:hover {
     background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
@@ -116,4 +119,24 @@ p.message {
     border: 1px solid darkslategrey;
     box-shadow: 1px 1px black;
     background: linear-gradient(90deg, rgba(0, 201, 255, 0.8) 0%, rgba(146, 254, 157, 0.5) 100%);
+}
+.songQ {
+    display: flex;
+    margin: 0;
+    gap: 5px;
+}
+.song-container {
+    margin-bottom: 10px;
+}
+.upvote {
+    margin: 0 0 0 20px;
+    background-color: green;
+    border: 1px solid green;
+    border-radius: 50px;
+}
+.downvote {
+    margin: 0;
+    background-color: red;
+    border: 1px solid red;
+    border-radius: 50px;
 }
