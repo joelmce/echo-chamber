@@ -1,7 +1,9 @@
 // RENDER CHAT-BOX UI
-function renderChat() {
+function renderChat(room) {
     const pageContainer = document.getElementById('page-container');
     const newE = tag => document.createElement(tag);
+
+    pageContainer.innerHTML = '';
 
     const chatContainer = newE('div')
     chatContainer.className = 'chat-container';
@@ -13,8 +15,8 @@ function renderChat() {
     msgDisplay.className = 'msg-display';
 
 
-    const chatInput = newE('div')
-    chatInput.className = 'chat-input';
+    const chatForm = newE('form')
+    chatForm.className = 'chat-input';
 
     const chatField = newE('input')
     chatField.setAttribute('type', 'text');
@@ -24,10 +26,12 @@ function renderChat() {
     enterBtn.className = 'enter-btn';
     enterBtn.innerHTML = 'enter';
 
+    chatForm.appendChild(chatField);
+    chatForm.appendChild(enterBtn);
+
     chatWrapper.appendChild(msgDisplay);
-    chatInput.appendChild(chatField);
-    chatInput.appendChild(enterBtn);
-    chatWrapper.appendChild(chatInput);
+    chatWrapper.appendChild(chatForm);
+
     chatContainer.appendChild(chatWrapper);
     pageContainer.appendChild(chatContainer);
 
@@ -44,11 +48,12 @@ function renderChat() {
             const bufferData = new Uint8Array(messageData.data);
             const text = new TextDecoder().decode(bufferData);
             console.log('Message from server:', text);
-            displayMessage(text);
+            displayMessage(text, room);
         }
     });
 
-    enterBtn.addEventListener('click', () => {
+    chatForm.addEventListener('submit', (event) => {
+        event.preventDefault();
         const message = chatField.value;
         if (message.trim() !== '') {
             if (socket.readyState === WebSocket.OPEN) {
@@ -61,7 +66,8 @@ function renderChat() {
     });
 }
 
-function displayMessage(message) {
+function displayMessage(message, room) {
+    console.log('Message in room:', room);
     const msgDisplay = document.querySelector('.msg-display');
 
     const messageP = document.createElement('p');
@@ -69,6 +75,31 @@ function displayMessage(message) {
     messageP.textContent = `guest: ${message}`;
 
     msgDisplay.insertBefore(messageP, msgDisplay.firstChild);
+
+    messageP.style.opacity = '0';
+    messageP.offsetHeight;
+
+    requestAnimationFrame(() => {
+        messageP.style.opacity = '1';
+    });
+}
+
+function loadMessages(room) {
+    const url = `http://localhost:3000/api/message/${room}`;
+
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('no response from db');
+            }
+            return response.json();
+        })
+        .then(messages => {
+            console.log('fetched messages:', messages);
+        })
+        .catch(error => {
+            console.error('error fetching messages', error);
+        });
 }
 
 export default renderChat;

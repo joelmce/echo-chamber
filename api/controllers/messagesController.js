@@ -13,7 +13,7 @@ async function addMessage(req, res) {
       messageContent: content,
       messageAuthor: {
         connect: {
-          authorId: authorId,
+          userId: authorId,
         },
       },
       room: {
@@ -32,17 +32,19 @@ async function addMessage(req, res) {
  * @param {*} res
  */
 async function getMessages(req, res) {
-  const { roomId } = req.params;
+  const roomId = parseInt(req.params.roomId);
+  console.log(roomId);
 
   const messages = await prisma.message.findMany({
     where: {
-      roomId: Number(roomId),
+      roomId: roomId,
     },
     select: {
       authorId: true,
-      content: true,
+      messageContent: true,
     },
   });
+  res.send(messages);
 }
 
 module.exports = {
