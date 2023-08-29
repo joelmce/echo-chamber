@@ -1,5 +1,6 @@
 // RENDER PLAYLIST UI
 function renderPlaylist(room) {
+    // boring html component rendering
     const pageContainer = document.getElementById('page-container');
     const newE = tag => document.createElement(tag);
 
@@ -32,35 +33,31 @@ function renderPlaylist(room) {
     playlistContainer.appendChild(playlistWrapper);
     pageContainer.appendChild(playlistContainer);
 
-    const playlistSocket = new WebSocket('ws://localhost:3000/playlist');
-
-    playlistSocket.addEventListener('message', async (event) => {
-        const messageData = JSON.parse(event.data);
-
-        if (messageData.type === 'Buffer') {
-            const bufferData = new Uint8Array(messageData.data);
-            const text = new TextDecoder().decode(bufferData);
-            const jsonObject = JSON.parse(text);
-            console.log('song from server:', jsonObject.message);
-            addSongToQ(jsonObject.message);
+    // initialize socket for playlist
+    const playlistSocket = io('http://localhost:3000', {
+        query: {
+            roomType: 'playlist'
         }
     });
 
+    // handle socket message events from server, render song to que
+    playlistSocket.on('message', (message) => {
+        console.log('song from server:', message);
+        addSongToQ(message);
+    });
+
+    // send message to socket server on form submit
     searchForm.addEventListener('submit', (event) => {
         event.preventDefault();
         const song = searchField.value;
         if (song.trim() !== '') {
-            if (playlistSocket.readyState === WebSocket.OPEN) {
-                const message = { type: 'playlist', message: song };
-                playlistSocket.send(JSON.stringify(message));
-                searchField.value = '';
-            } else {
-                console.log('WebSocket is not in OPEN state');
-            }
+            playlistSocket.emit('message', song);
+            searchField.value = '';
         }
     });
 }
 
+// render song to playlist que
 function addSongToQ(song) {
     console.log("song incoming...:", song);
     const qDisplay = document.querySelector('.que-display');
