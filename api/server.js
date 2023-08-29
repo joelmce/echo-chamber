@@ -1,10 +1,15 @@
 // imports
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const userRouter = require('./routes/userRouter');
 const playlistRouter = require('./routes/playlistRouter');
 const roomRouter = require('./routes/roomRouter');
 const messageRouter = require('./routes/messageRouter');
+const sessionsRouter = require('./routes/sessionsRouter.js');
+const expressSession = require('express-session');
+const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
+const { PrismaClient } = require('@prisma/client');
 
 // initialize express server
 const app = express();
@@ -20,12 +25,28 @@ const io = new Server(server);
 // server static files from client folder, use JSON for requests
 app.use(express.json());
 app.use(express.static('../client'));
+app.use(
+  expressSession({
+    cookie: {
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in ms
+    },
+    secret: process.env.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: true,
+    store: new PrismaSessionStore(new PrismaClient(), {
+      checkPeriod: 2 * 60 * 1000, // 2 minutes in ms
+      dbRecordIdIsSessionId: true,
+      dbRecordIdFunction: undefined,
+    }),
+  })
+);
 
 // api routes
 app.use('/api/users', userRouter);
 app.use('/api/playlist', playlistRouter);
 app.use('/api/room', roomRouter);
 app.use('/api/message', messageRouter);
+app.use('/api/sessions', sessionsRouter);
 
 // render index.html as root path
 app.get('/', (req, res) => {

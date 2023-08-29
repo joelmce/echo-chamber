@@ -3,8 +3,7 @@ DOCUMENTATION URL: https://www.prisma.io/docs/guides/migrate/seed-database
 run 'npx prisma db seed'
 */
 
-const { PrismaClient } = require('@prisma/client')
-const prisma = new PrismaClient()
+const prisma = require("./prismaClient.js")
 
 async function main () {
 
@@ -13,11 +12,13 @@ async function main () {
         where: { userId: 1},
         update: {
             username: 'Harry',
+            email: 'harry@email.com',
             hash: '123456789',
         },
         // if the user doesn't exist, it will create a user with the details provided below
         create: {
             username: 'Alex',
+            email: 'alex@email.com',
             hash: '123456789',
             // remember, when referencing related tables use the @relation name (connectedRoom), not it's reference (roomId)
             connectedRoom: {
@@ -33,6 +34,7 @@ async function main () {
         update: {},
         create: {
             username: 'Nikita',
+            email: 'nikita@email.com',
             hash: 'abcdefghi',
             connectedRoom: {
                 create: {
@@ -66,7 +68,7 @@ async function main () {
                 connect: {
                     roomId: 1,
                 },
-            },        
+            },
         }
     })
 
