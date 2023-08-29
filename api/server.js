@@ -18,7 +18,7 @@ const server = app.listen(port, () => {
 });
 
 // initialize socketIO server
-const { Server } = require("socket.io");
+const { Server } = require('socket.io');
 const io = new Server(server);
 
 // server static files from client folder, use JSON for requests
@@ -39,7 +39,7 @@ app.use(
       dbRecordIdIsSessionId: true,
       dbRecordIdFunction: undefined,
     }),
-  })
+  }),
 );
 
 // api routes
@@ -49,23 +49,22 @@ app.use('/api/room', roomRouter);
 app.use('/api/message', messageRouter);
 app.use('/api/sessions', sessionsRouter);
 
-
 // handle socketIO events - listen for messages and fetch room via query params
 // connection event (might help with displaying which members are in what room)
-io.on("connection", (socket) => {
-  console.log("new connection");
+io.on('connection', (socket) => {
+  console.log('new connection');
 
   // handles room changing
   const roomType = socket.handshake.query.roomType;
   socket.join(roomType);
 
   // on message event send message to the correct room
-  socket.on("message", (message) => {
-    io.to(roomType).emit("message", message);
+  socket.on('message', (message) => {
+    io.to(roomType).emit('message', message);
   });
 
   // disconnect event (might help with displaying which members are in what room)
-  socket.on("disconnect", () => {
-    console.log("client disconnected");
+  socket.on('disconnect', () => {
+    console.log('client disconnected');
   });
 });

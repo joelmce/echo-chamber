@@ -10,7 +10,7 @@ function renderLoginForm(target = document.getElementById('page')) {
         formField('password', { required: true, maxLength: 50 }),
         html('button', { class: 'btn btn-primary' }, 'Login'),
       ]),
-    ])
+    ]),
   );
 }
 

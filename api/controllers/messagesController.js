@@ -24,7 +24,7 @@ async function addMessage(req, res) {
     },
   });
   res.send(message);
-  console.log("message sent:", message);
+  console.log('message sent:', message);
 }
 
 /**
