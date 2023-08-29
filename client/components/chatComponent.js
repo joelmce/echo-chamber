@@ -1,5 +1,7 @@
 // RENDER CHAT-BOX UI
+
 function renderChat(room) {
+    // boring html component rendering
     const pageContainer = document.getElementById('page-container');
     const newE = tag => document.createElement(tag);
 
@@ -32,6 +34,7 @@ function renderChat(room) {
     chatContainer.appendChild(chatWrapper);
     pageContainer.appendChild(chatContainer);
 
+    // load existing messages from database
     const existingMsgs = loadMessages(room)
         .then(messages => {
             msgDisplay.innerHTML = '';
@@ -44,39 +47,38 @@ function renderChat(room) {
             console.error('error loading messages', error);
         });
 
-    const chatSocket = new WebSocket('ws://localhost:3000/chat');
-
-    chatSocket.addEventListener('open', (event) => {
-        console.log('WebSocket connection opened');
-    });
-
-    chatSocket.addEventListener('message', async (event) => {
-        const messageData = JSON.parse(event.data);
-
-        if (messageData.type === 'Buffer') {
-            const bufferData = new Uint8Array(messageData.data);
-            const text = new TextDecoder().decode(bufferData);
-            console.log('Message from server:', text);
-            displayMessage(text, room);
-            sendMessage(text, room);
+    // initialize socket for chat
+    const chatSocket = io('http://localhost:3000', {
+        query: {
+            roomType: 'chat'
         }
     });
 
+    // client-side handling of new socket connection
+    chatSocket.on('connect', () => {
+        console.log('Socket.IO connection opened');
+    });
+
+    // handle socket message events from server, render messages and store in database
+    chatSocket.on('message', (message) => {
+        console.log('message from server:', message);
+        displayMessage(message, room);
+        sendMessage(message, room);
+    });
+
+    // send message to socket server on form submit
     chatForm.addEventListener('submit', (event) => {
         event.preventDefault();
         const message = chatField.value;
         if (message.trim() !== '') {
-            if (chatSocket.readyState === WebSocket.OPEN) {
-                chatSocket.send(message);
-                chatField.value = '';
-            } else {
-                console.log('WebSocket is not in OPEN state');
-            }
+            chatSocket.emit('message', message);
+            chatField.value = '';
         }
     });
 }
 
-function displayMessage(message, room) {
+// display messages client-side
+export function displayMessage(message, room) {
     console.log('Message in room:', room);
     const msgDisplay = document.querySelector('.msg-display');
 
@@ -94,6 +96,7 @@ function displayMessage(message, room) {
     });
 }
 
+// fetch existing messages from database as an array
 function loadMessages(room) {
     const url = `http://localhost:3000/api/message/${room}`;
 
@@ -110,6 +113,7 @@ function loadMessages(room) {
         });
 }
 
+// send message from chat to database
 function sendMessage(message, room) {
     const messageData = {
         authorId: 1,
@@ -123,7 +127,7 @@ function sendMessage(message, room) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(messageData)
-        })
+    })
         .then(response => response.json())
         .then(newMessage => {
             console.log('new message:', newMessage);
@@ -132,6 +136,5 @@ function sendMessage(message, room) {
             console.error('error adding msg to db:', error);
         });
 }
-
 
 export default renderChat;
