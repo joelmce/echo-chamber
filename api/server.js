@@ -1,3 +1,4 @@
+// imports
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
@@ -10,20 +11,19 @@ const expressSession = require('express-session');
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 const { PrismaClient } = require('@prisma/client');
 
-const WebSocket = require('ws');
-
+// initialize express server
 const app = express();
-
 const port = process.env.PORT || 3000;
-
-let server = app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
 
-const wss = new WebSocket.Server({ server });
+// initialize socketIO server
+const { Server } = require("socket.io");
+const io = new Server(server);
 
+// server static files from client folder, use JSON for requests
 app.use(express.json());
-
 app.use(express.static('../client'));
 app.use(
   expressSession({
@@ -41,73 +41,34 @@ app.use(
   })
 );
 
-const chatSockets = [];
-const playlistSockets = [];
-
-wss.on('connection', (socket, request) => {
-  console.log('New client connected');
-
-  const url = request.url;
-
-  if (url === '/playlist') {
-    playlistSockets.push(socket); // Add the socket to the playlistSockets array
-
-    socket.on('message', (message) => {
-      playlistSockets.forEach((playlistSocket) => {
-        if (playlistSocket.readyState === WebSocket.OPEN) {
-          playlistSocket.send(JSON.stringify(message));
-        }
-      });
-    });
-  } else if (url === '/chat') {
-    chatSockets.push(socket); // Add the socket to the chatSockets array
-
-    socket.on('message', (message) => {
-      chatSockets.forEach((chatSocket) => {
-        if (chatSocket.readyState === WebSocket.OPEN) {
-          chatSocket.send(JSON.stringify(message));
-        }
-      });
-    });
-  }
-
-  socket.on('close', () => {
-    console.log('Client disconnected');
-
-    // Remove the socket from the respective array when it's closed
-    if (url === '/playlist') {
-      const index = playlistSockets.indexOf(socket);
-      if (index !== -1) {
-        playlistSockets.splice(index, 1);
-      }
-    } else if (url === '/chat') {
-      const index = chatSockets.indexOf(socket);
-      if (index !== -1) {
-        chatSockets.splice(index, 1);
-      }
-    }
-  });
-});
-
-// socket.on('message', (message) => {
-//   wss.clients.forEach((client) => {
-//     if (client.readyState === WebSocket.OPEN) {
-//       client.send(JSON.stringify(message));
-//     }
-//   });
-// });
-
-//   socket.on('close', () => {
-//     console.log('Client disconnected');
-//   });
-// });
-
+// api routes
 app.use('/api/users', userRouter);
 app.use('/api/playlist', playlistRouter);
 app.use('/api/room', roomRouter);
 app.use('/api/message', messageRouter);
 app.use('/api/sessions', sessionsRouter);
 
+// render index.html as root path
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'client', 'index.html'));
+});
+
+// handle socketIO events - listen for messages and fetch room via query params
+// connection event (might help with displaying which members are in what room)
+io.on("connection", (socket) => {
+  console.log("new connection");
+
+  // handles room changing
+  const roomType = socket.handshake.query.roomType;
+  socket.join(roomType);
+
+  // on message event send message to the correct room
+  socket.on("message", (message) => {
+    io.to(roomType).emit("message", message);
+  });
+
+  // disconnect event (might help with displaying which members are in what room)
+  socket.on("disconnect", () => {
+    console.log("client disconnected");
+  });
 });
