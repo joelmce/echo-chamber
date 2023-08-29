@@ -10,7 +10,6 @@ datasource db {
 model Room {
   roomId   Int    @id @default(autoincrement())
   roomName String
-
   users    User[]
   playlist Playlist?
   Message  Message[]

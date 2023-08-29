@@ -1,7 +1,6 @@
 // imports
 require('dotenv').config();
 const express = require('express');
-const path = require('path');
 const userRouter = require('./routes/userRouter');
 const playlistRouter = require('./routes/playlistRouter');
 const roomRouter = require('./routes/roomRouter');
@@ -25,6 +24,8 @@ const io = new Server(server);
 // server static files from client folder, use JSON for requests
 app.use(express.json());
 app.use(express.static('../client'));
+
+// initialize express session
 app.use(
   expressSession({
     cookie: {
@@ -48,10 +49,6 @@ app.use('/api/room', roomRouter);
 app.use('/api/message', messageRouter);
 app.use('/api/sessions', sessionsRouter);
 
-// render index.html as root path
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client', 'index.html'));
-});
 
 // handle socketIO events - listen for messages and fetch room via query params
 // connection event (might help with displaying which members are in what room)
