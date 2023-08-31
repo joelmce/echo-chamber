@@ -4,7 +4,6 @@ import userInfo from './userInfo.js';
 
 function renderLoggedInUser(user) {
   const { username } = user;
-  console.log(user);
   const userStatus = document.getElementById('user-status');
   userStatus.replaceChildren(loggedInUser(username));
 }
