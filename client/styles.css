@@ -5,22 +5,21 @@
 
 body {
     font-family: 'Fira Code', monospace;
-    background-color: black;
+    background-color: white;
 }
 
 #page-container {
     display: flex;
     justify-content: center;
-    width: auto;
+    max-width: 85%;
     height: 100vh;
-    background-color: whitesmoke;
 }
 
 .chat-container {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    height: 75vh;
+    height: 100vh;
     width: 50%;
 }
 
@@ -28,25 +27,23 @@ body {
     display: flex;
     flex-direction: row;
     justify-self: flex-start;
-    height: 75vh;
+    height: 100vh;
     width: 35%;
 }
 .navbar-container {
     display: flex;
     flex-direction: row;
     justify-self: flex-start;
-    height: 75vh;
     width: 15%;
 }
 
 .chat-wrapper {
     height: 100%;
-    max-height: 60vh;
+    max-height: 90vh;
     width: 100%;
     padding: 10px;
     margin-top: 70px;
     margin-right: 0;
-
     background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
     display: flex;
     flex-direction: column;
@@ -58,7 +55,7 @@ body {
 
 .playlist-wrapper {
     height: 100%;
-    max-height: 60vh;
+    max-height: 90vh;
     width: 100%;
     padding: 10px;
     margin-top: 70px;
@@ -71,8 +68,8 @@ body {
 }
 #navbar {
     height: 100%;
+    max-height: 90vh;
     margin-top: 70px;
-    max-height: 60vh;
     margin-left: 10px;
     width: 100%;
     padding: 10px;
