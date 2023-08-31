@@ -184,7 +184,6 @@ p.message:hover .delete-button {
     margin: 0;
     gap: 10px;
     align-items: center;
-    /*border-bottom: 1px solid black;*/
     padding-bottom: 10px;
     width: max-content;
 }
@@ -244,11 +243,32 @@ p.message:hover .delete-button {
 
 .message {
     flex: 1;
-
 }
 
 .message-container {
     display: flex;
     flex-direction: row;
     height: auto;
+}
+.room-name {
+    list-style-type: none;
+    font-size: 20px;
+    margin: 10px 10px;
+    border: 1px solid darkslategrey;
+    padding: 10px;
+    background: linear-gradient(
+            90deg,
+            rgba(0, 201, 255, 0.8) 0%,
+            rgba(146, 254, 157, 0.5) 100%
+    );
+}
+.room-name:hover {
+    scale: 101%;
+    border: 1px solid black;
+}
+#room-list {
+    width: 100%;
+    margin-top: 25px;
+    text-align: center;
+    padding-left: 0;
 }
