@@ -98,11 +98,6 @@ function renderChat(room) {
         messageP.className = 'message';
         messageP.textContent = `user: ${message}`;
 
-        const deleteButton = document.createElement('span');
-        deleteButton.className = 'delete-button';
-        deleteButton.textContent = 'X';
-
-        messageP.appendChild(deleteButton);
         messageDiv.appendChild(messageP);
         msgDisplay.insertBefore(messageDiv, msgDisplay.firstChild);
 
