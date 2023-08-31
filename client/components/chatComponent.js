@@ -78,16 +78,6 @@ function renderChat(room) {
 }
 
 // display messages client-side
-export function displayMessage(message, room) {
-    console.log('Message in room:', room);
-    const msgDisplay = document.querySelector('.msg-display');
-
-    const messageP = document.createElement('p');
-    messageP.className = 'message';
-    messageP.textContent = `guest: ${message}`;
-
-    msgDisplay.insertBefore(messageP, msgDisplay.firstChild);
-
 // USER PARAMETER IS USED FOR USER-AVATAR RENDERING
     export function displayMessage(message, room, user) {
         console.log('Message in room:', room);
@@ -122,6 +112,8 @@ export function displayMessage(message, room) {
         requestAnimationFrame(() => {
             messageP.style.opacity = '1';
         });
+
+
     }
 
 // fetch existing messages from database as an array
@@ -164,5 +156,5 @@ export function displayMessage(message, room) {
                 console.error('error adding msg to db:', error);
             });
     }
-}
+
 export default renderChat;
