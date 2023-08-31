@@ -5,23 +5,21 @@
 
 body {
     font-family: 'Fira Code', monospace;
-    background-color: black;
+    background-color: white;
 }
 
 #page-container {
     display: flex;
-    flex-direction: row;
     justify-content: center;
-    width: auto;
+    max-width: 85%;
     height: 100vh;
-    background-color: whitesmoke;
 }
 
 .chat-container {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    height: 75vh;
+    height: 100vh;
     width: 50%;
 }
 
@@ -29,61 +27,60 @@ body {
     display: flex;
     flex-direction: row;
     justify-self: flex-start;
-    height: 75vh;
+    height: 100vh;
     width: 35%;
 }
 .navbar-container {
     display: flex;
     flex-direction: row;
     justify-self: flex-start;
-    height: 75vh;
     width: 15%;
 }
 
 .chat-wrapper {
     height: 100%;
-    max-height: 60vh;
+    max-height: 90vh;
     width: 100%;
     padding: 10px;
     margin-top: 70px;
     margin-right: 0;
-
-    background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
+    background-color: #2F3035;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border-top: 2px solid darkslategrey;
-    border-left: 2px solid darkslategrey;
-    border-bottom: 2px solid darkslategrey;
+    border-top: 1px solid cyan;
+    border-bottom: 1px solid cyan;
 }
 
 .playlist-wrapper {
     height: 100%;
-    max-height: 60vh;
+    max-height: 90vh;
     width: 100%;
     padding: 10px;
     margin-top: 70px;
-    margin-right: 50px;
-    background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
+    margin-right: 10px;
+    background-color: #2A2D31;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border: 2px solid darkslategrey;
+    border-top: 1px solid cyan;
+    border-bottom: 1px solid cyan;
+    border-right: 1px solid cyan;
 }
 #navbar {
     height: 100%;
+    max-height: 90vh;
     margin-top: 70px;
-    max-height: 60vh;
     margin-left: 10px;
     width: 100%;
     padding: 10px;
-    background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
+    background-color: #2A2D31;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border-top: 2px solid darkslategrey;
-    border-left: 2px solid darkslategrey;
-    border-bottom: 2px solid darkslategrey;
+    border-top: 1px solid cyan;
+    border-bottom: 1px solid cyan;
+    border-left: 1px solid cyan;
 }
 
 .chat-input,
@@ -91,10 +88,14 @@ body {
     display: flex;
     width: 90%;
     height: 13%;
-    background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
+    background-color: #2A2D31;
     margin-bottom: 20px;
     align-items: center;
     border-radius: 10px;
+}
+.chat-input {
+    background-color: #2F3035;
+
 }
 
 #whitespace {
@@ -108,20 +109,23 @@ body {
     width: 62%;
     border: 2px solid darkslategrey;
     border-radius: 5px;
-    background-color: aliceblue;
+    background-color: #383A40;
     font-family: 'Fira Code', monospace;
+    color: #DBDEE1;
 }
+
 
 .enter-btn {
     padding: 15px;
     width: 22%;
     border: 2px solid darkslategrey;
     border-radius: 5px;
-    background-color: aliceblue;
+    background-color: #383A40;
     font-family: 'Fira Code', monospace;
     font-size: 12px;
     display: flex;
     justify-content: center;
+    color: #DBDEE1;
 }
 
 .enter-btn:hover {
@@ -188,7 +192,6 @@ p.message:hover .delete-button {
     margin: 0;
     gap: 10px;
     align-items: center;
-    /*border-bottom: 1px solid black;*/
     padding-bottom: 10px;
     width: max-content;
 }
@@ -248,11 +251,33 @@ p.message:hover .delete-button {
 
 .message {
     flex: 1;
-
 }
 
 .message-container {
     display: flex;
     flex-direction: row;
     height: auto;
+}
+.room-name {
+    list-style-type: none;
+    font-size: 20px;
+    margin: 10px 10px;
+    border: 1px solid darkslategrey;
+    padding: 7px;
+    background: linear-gradient(
+            90deg,
+            rgba(0, 201, 255, 0.8) 0%,
+            rgba(146, 254, 157, 0.5) 100%
+    );
+    border-radius: 5px;
+}
+.room-name:hover {
+    scale: 101%;
+    border: 1px solid black;
+}
+#room-list {
+    width: 100%;
+    margin-top: 25px;
+    text-align: center;
+    padding-left: 0;
 }
