@@ -10,13 +10,13 @@
   <body>
     <section id="navbar">
       <ul id="rooms-list">
-        <li class="room" id="room1">Room 1</li>
-        <li class="room" id="room2">Room 2</li>
-        <li class="room" id="room3">Room 3</li>
+        <li class="room btn" id="room1">Room 1</li>
+        <li class="room btn" id="room2">Room 2</li>
+        <li class="room btn" id="room3">Room 3</li>
       </ul>
       <div id="user-status">
-        <button>Login</button>
-        <button>Sign up</button>
+        <button class="btn btn-light">Login</button>
+        <button class="btn btn-light">Sign up</button>
       </div>
     </section>
     <section id="chat-room">
@@ -25,9 +25,9 @@
         <li class="message" id="message2">Message 2</li>
         <li class="message" id="message3">Message 3</li>
       </ul>
-      <form id="message-form">
-        <input type="text" id="message-input" />
-        <input type="submit" value="Send" />
+      <form id="message-form" class="form">
+        <input type="text" id="message-input" class="input" />
+        <button class="btn btn-dark">Send</button>
       </form>
     </section>
     <section id="sidebar">
@@ -36,9 +36,9 @@
         <li class="song" id="song2">Song 2</li>
         <li class="song" id="song3">Song 3</li>
       </ul>
-      <form id="song-form">
-        <input type="text" id="song" />
-        <input type="submit" value="Add" />
+      <form id="song-form" class="form">
+        <input type="text" id="song" class="input" />
+        <button class="btn btn-dark">Add</button>
       </form>
     </section>
   </body>

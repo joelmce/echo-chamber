@@ -37,6 +37,49 @@ body {
   color: var(--text-color);
 }
 
+:focus {
+  outline: 3px solid var(--brand-600);
+  outline-offset: 2px;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.btn-light {
+  background-color: white;
+  color: var(--brand-700);
+  border: 1px solid var(--brand-700);
+}
+
+.btn-light:hover {
+  background-color: var(--brand-100);
+}
+
+.btn-dark {
+  background-color: var(--brand-500);
+  color: white;
+}
+
+.btn-dark:hover {
+  background-color: var(--brand-600);
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.25rem;
+  color: var(--brand-700);
+  border: 1px solid var(--brand-700);
+}
+
+.form {
+  display: flex;
+  gap: 0.5rem;
+}
+
 #navbar,
 #chat-room,
 #sidebar {
@@ -44,7 +87,7 @@ body {
 }
 
 #navbar {
-  width: 12rem;
+  width: 15rem;
   background-color: var(--brand-700);
   color: white;
   display: flex;
@@ -58,12 +101,34 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
+}
 
-  & > :first-child {
-    height: 100%;
-  }
+#message-list,
+#song-list {
+  height: 100%;
 }
 
 #sidebar {
   border-left: 1px solid var(--brand-400);
+}
+
+#rooms-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.room:hover {
+  background-color: var(--brand-600);
+}
+
+#user-status {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+#user-status .btn {
+  width: 100%;
 }
