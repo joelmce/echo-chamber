@@ -92,16 +92,12 @@ function renderChat(room) {
         avatarImg.src = 'https://dl.openseauserdata.com/cache/originImage/files/547152b481352a23d622d9ec71a568e3.png';
         // REPLACE WITH USERS AVATAR
 
-        const deleteButton = document.createElement('button');
-        deleteButton.className = 'delete-button';
-
         messageDiv.appendChild(avatarImg);
 
         const messageP = document.createElement('p');
         messageP.className = 'message';
         messageP.textContent = `user: ${message}`;
 
-        messageP.appendChild(deleteButton);
         messageDiv.appendChild(messageP);
         msgDisplay.insertBefore(messageDiv, msgDisplay.firstChild);
 
