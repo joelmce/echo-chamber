@@ -205,10 +205,11 @@ body {
 }
 
 .message-item {
+  max-width: 70ch;
+  margin-inline: auto;
   display: grid;
   gap: 0.5rem;
   align-items: flex-start;
-  border-top: 1px solid var(--brand-200);
   padding-block: 1rem;
 }
 
