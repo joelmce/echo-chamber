@@ -1,5 +1,23 @@
 :root {
-  --brand-50: hsl(7 57% 97%);
+  --hues: 200;
+  --saturation: 20%;
+  --lightness: 20%;
+  --color: hsl(var(--hues) var(--saturation) var(--lightness));
+  --step: 18%;
+
+  --brand-50: color-mix(in oklab, var(--color), white calc(5 * var(--step)));
+  --brand-100: color-mix(in oklab, var(--color), white calc(4 * var(--step)));
+  --brand-200: color-mix(in oklab, var(--color), white calc(3 * var(--step)));
+  --brand-300: color-mix(in oklab, var(--color), white calc(2 * var(--step)));
+  --brand-400: color-mix(in oklab, var(--color), white calc(1 * var(--step)));
+  --brand-500: var(--color);
+  --brand-600: color-mix(in oklab, var(--color), black calc(1 * var(--step)));
+  --brand-700: color-mix(in oklab, var(--color), black calc(2 * var(--step)));
+  --brand-800: color-mix(in oklab, var(--color), black calc(3 * var(--step)));
+  --brand-900: color-mix(in oklab, var(--color), black calc(4 * var(--step)));
+  --brand-950: color-mix(in oklab, var(--color), black calc(5 * var(--step)));
+
+  /* --brand-50: hsl(7 57% 97%);
   --brand-100: hsl(8 56% 95%);
   --brand-200: hsl(7 53% 90%);
   --brand-300: hsl(6 55% 82%);
@@ -9,10 +27,10 @@
   --brand-700: hsl(358 47% 41%);
   --brand-800: hsl(356 46% 35%);
   --brand-900: hsl(354 43% 27%);
-  --brand-950: hsl(354 51% 16%);
+  --brand-950: hsl(354 51% 16%); */
 
-  --bg-color: var(--brand-50);
-  --text-color: var(--brand-900);
+  --bg-color: var(--brand-100);
+  --text-color: var(--brand-800);
 }
 
 *,
@@ -49,7 +67,7 @@ body {
 }
 
 .btn-light {
-  background-color: white;
+  background-color: var(--brand-50);
   color: var(--brand-700);
   border: 1px solid var(--brand-700);
 }
@@ -60,7 +78,7 @@ body {
 
 .btn-dark {
   background-color: var(--brand-500);
-  color: white;
+  color: var(--brand-50);
 }
 
 .btn-dark:hover {
@@ -73,6 +91,7 @@ body {
   border-radius: 0.25rem;
   color: var(--brand-700);
   border: 1px solid var(--brand-700);
+  background-color: var(--brand-50);
 }
 
 .label {
@@ -105,7 +124,7 @@ body {
 #navbar {
   width: 15rem;
   background-color: var(--brand-700);
-  color: white;
+  color: var(--brand-50);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -194,7 +213,7 @@ body {
 #user-status .user-avatar {
   width: 4rem;
   height: 4rem;
-  border: white 2px solid;
+  border: var(--brand-50) 2px solid;
 }
 
 .message-item {
