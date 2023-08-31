@@ -10,20 +10,89 @@
   <body>
     <section id="navbar">
       <ul id="rooms-list">
-        <li class="room btn" id="room1">Room 1</li>
+        <li class="room btn active" id="room1">Room 1</li>
         <li class="room btn" id="room2">Room 2</li>
         <li class="room btn" id="room3">Room 3</li>
       </ul>
       <div id="user-status">
+        <!--
         <button class="btn btn-light">Login</button>
         <button class="btn btn-light">Sign up</button>
+         -->
+
+        <div class="user-info">
+          <img
+            src="https://i.pravatar.cc/100?u=foad"
+            alt="foad"
+            class="user-avatar"
+          />
+          <p class="user-name">foad</p>
+        </div>
+        <button class="btn btn-light">Log out</button>
       </div>
     </section>
     <section id="chat-room">
+      <h2 class="section-title">Rooom 1</h2>
       <ul id="message-list">
-        <li class="message" id="message1">Message 1</li>
-        <li class="message" id="message2">Message 2</li>
-        <li class="message" id="message3">Message 3</li>
+        <li class="message-item" id="message1">
+          <div class="user-info">
+            <img
+              src="https://i.pravatar.cc/100?u=nikita"
+              alt="nikita"
+              class="user-avatar"
+            />
+            <p class="user-name">nikita</p>
+          </div>
+          <p class="message-text">
+            Eum delectus accusantium ullam libero labore, accusamus eius.
+            Eligendi veniam dolores doloribus voluptates officia maxime ut
+            veritatis.
+          </p>
+        </li>
+        <li class="message-item" id="message1">
+          <div class="user-info">
+            <img
+              src="https://i.pravatar.cc/100?u=foad"
+              alt="foad"
+              class="user-avatar"
+            />
+            <p class="user-name">foad</p>
+          </div>
+          <p class="message-text">
+            Lorem Eligendi veniam dolores doloribus voluptates officia maxime ut
+            veritatis.
+          </p>
+        </li>
+        <li class="message-item" id="message1">
+          <div class="user-info">
+            <img
+              src="https://i.pravatar.cc/100?u=alex"
+              alt="alex"
+              class="user-avatar"
+            />
+            <p class="user-name">alex</p>
+          </div>
+          <p class="message-text">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempora,
+            itaque id optio eligendi eum delectus accusantium ullam libero
+            labore, accusamus eius. Eligendi veniam dolores doloribus voluptates
+            officia maxime ut veritatis.
+          </p>
+        </li>
+        <li class="message-item" id="message1">
+          <div class="user-info">
+            <img
+              src="https://i.pravatar.cc/100?u=joel"
+              alt="joel"
+              class="user-avatar"
+            />
+            <p class="user-name">joel</p>
+          </div>
+          <p class="message-text">
+            Accusantium ullam libero labore, accusamus eius. Eligendi veniam
+            dolores doloribus voluptates officia maxime ut veritatis.
+          </p>
+        </li>
       </ul>
       <form id="message-form" class="form">
         <input type="text" id="message-input" class="input" />
@@ -31,6 +100,7 @@
       </form>
     </section>
     <section id="sidebar">
+      <h2 class="section-title">Playlist</h2>
       <ul id="song-list">
         <li class="song" id="song1">Song 1</li>
         <li class="song" id="song2">Song 2</li>
