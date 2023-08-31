@@ -7,42 +7,32 @@ async function getAllUsers(req, res) {
 }
 
 async function getUserById(req, res) {
-  const { id } = req.params;
-
-  const user = await prisma.user.findUnique({
-    where: {
-      userId: Number(id),
-    },
-  });
-
-  console.log(user);
-
+  const userId = parseInt(req.params.id);
+  const user = await prisma.user.findUnique({ where: { userId } });
   res.json(user);
 }
 
 async function createUser(req, res) {
-  const { username, password } = req.body;
+  const { username, email, password } = req.body;
 
-  const user = {
-    username,
-    hash: generateHash(password),
-  };
-
-  const newUser = await prisma.user.create({ data: user });
-
+  const newUser = await prisma.user.create({
+    data: {
+      username,
+      email,
+      hash: generateHash(password),
+    },
+  });
   res.json(newUser);
 }
 
 async function deleteUser(req, res) {
-  const { id } = req.params;
-
-  const deletedUser = await prisma.user.delete({
-    where: {
-      userId: Number(id),
-    },
-  });
-
+  const userId = parseInt(req.params.id);
+  const deletedUser = await prisma.user.delete({ where: { userId } });
   res.json(deletedUser);
+}
+
+async function getUserByEmail(email) {
+  return await prisma.user.findUnique({ where: { email } });
 }
 
 // TODO: updateUser
@@ -50,6 +40,7 @@ async function deleteUser(req, res) {
 module.exports = {
   getAllUsers,
   getUserById,
+  getUserByEmail,
   createUser,
   deleteUser,
 };

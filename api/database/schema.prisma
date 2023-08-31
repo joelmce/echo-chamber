@@ -10,7 +10,6 @@ datasource db {
 model Room {
   roomId   Int    @id @default(autoincrement())
   roomName String
-
   users    User[]
   playlist Playlist?
   Message  Message[]
@@ -28,6 +27,7 @@ model User {
   userId        Int       @id @default(autoincrement())
   createdAt     DateTime  @default(now())
   username      String    @db.VarChar(80)
+  email         String    @unique @db.VarChar(255)
   hash          String    @db.VarChar(255)
   connectedRoom Room?     @relation(fields: [roomId], references: [roomId])
   roomId        Int?
@@ -41,4 +41,11 @@ model Message {
   authorId       Int
   room           Room?  @relation(fields: [roomId], references: [roomId])
   roomId         Int
+}
+
+model Session {
+  id        String   @id
+  sid       String   @unique
+  data      String
+  expiresAt   DateTime
 }
