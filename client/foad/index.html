@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Echo Chamber</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script type="module" src="./script.js"></script>
+  </head>
+  <body>
+    <section id="navbar">
+      <ul id="rooms-list">
+        <li class="room" id="room1">Room 1</li>
+        <li class="room" id="room2">Room 2</li>
+        <li class="room" id="room3">Room 3</li>
+      </ul>
+      <div id="user-status">
+        <button>Login</button>
+        <button>Sign up</button>
+      </div>
+    </section>
+    <section id="chat-room">
+      <ul id="message-list">
+        <li class="message" id="message1">Message 1</li>
+        <li class="message" id="message2">Message 2</li>
+        <li class="message" id="message3">Message 3</li>
+      </ul>
+      <form id="message-form">
+        <input type="text" id="message-input" />
+        <input type="submit" value="Send" />
+      </form>
+    </section>
+    <section id="sidebar">
+      <ul id="song-list">
+        <li class="song" id="song1">Song 1</li>
+        <li class="song" id="song2">Song 2</li>
+        <li class="song" id="song3">Song 3</li>
+      </ul>
+      <form id="song-form">
+        <input type="text" id="song" />
+        <input type="submit" value="Add" />
+      </form>
+    </section>
+  </body>
+</html>

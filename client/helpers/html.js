@@ -17,7 +17,6 @@ function parseArguments(args) {
     isAttribute(arg) ? setAttributes(attributes, arg) : children.push(arg);
   });
 
-  // Create shorthand aliases for common attributes
   if (attributes.class) attributes.className = attributes.class;
 
   return [type, attributes, children.flat(Infinity)];
