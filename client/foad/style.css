@@ -75,8 +75,24 @@ body {
   border: 1px solid var(--brand-700);
 }
 
-.form {
+.label {
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.form-inline {
   display: flex;
+  gap: 0.5rem;
+}
+
+.form {
+  margin-block: 2rem;
+}
+
+.form-field {
+  margin-block: 1rem;
+  display: flex;
+  flex-direction: column;
   gap: 0.5rem;
 }
 
@@ -92,7 +108,6 @@ body {
   color: white;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
 }
 
@@ -124,6 +139,7 @@ body {
 }
 
 #user-status {
+  margin-top: auto;
   width: 100%;
   display: flex;
   flex-direction: column;
