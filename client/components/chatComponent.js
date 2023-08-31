@@ -1,5 +1,4 @@
 // RENDER CHAT-BOX UI
-
 function renderChat(room) {
   // boring html component rendering
   const pageContainer = document.getElementById('page-container');
