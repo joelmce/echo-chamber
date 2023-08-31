@@ -5,9 +5,9 @@ function formField(name, { label = name, id = name, type, ...props } = {}) {
   if (name === 'password') type ??= 'password';
   type ??= 'text';
 
-  return html({ class: 'list-item' }, [
-    html('label', label, { for: id }),
-    html('input', { name, id, type, ...props }),
+  return html({ class: 'form-field' }, [
+    html('label', label, { for: id, class: 'label' }),
+    html('input', { class: 'input', name, id, type, ...props }),
   ]);
 }
 

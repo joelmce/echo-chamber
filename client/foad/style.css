@@ -1,0 +1,231 @@
+:root {
+  --hues: 200;
+  --saturation: 20%;
+  --lightness: 20%;
+  --color: hsl(var(--hues) var(--saturation) var(--lightness));
+  --step: 18%;
+
+  --brand-50: color-mix(in oklab, var(--color), white calc(5 * var(--step)));
+  --brand-100: color-mix(in oklab, var(--color), white calc(4 * var(--step)));
+  --brand-200: color-mix(in oklab, var(--color), white calc(3 * var(--step)));
+  --brand-300: color-mix(in oklab, var(--color), white calc(2 * var(--step)));
+  --brand-400: color-mix(in oklab, var(--color), white calc(1 * var(--step)));
+  --brand-500: var(--color);
+  --brand-600: color-mix(in oklab, var(--color), black calc(1 * var(--step)));
+  --brand-700: color-mix(in oklab, var(--color), black calc(2 * var(--step)));
+  --brand-800: color-mix(in oklab, var(--color), black calc(3 * var(--step)));
+  --brand-900: color-mix(in oklab, var(--color), black calc(4 * var(--step)));
+  --brand-950: color-mix(in oklab, var(--color), black calc(5 * var(--step)));
+
+  /* --brand-50: hsl(7 57% 97%);
+  --brand-100: hsl(8 56% 95%);
+  --brand-200: hsl(7 53% 90%);
+  --brand-300: hsl(6 55% 82%);
+  --brand-400: hsl(4 53% 71%);
+  --brand-500: hsl(2 51% 60%);
+  --brand-600: hsl(359 44% 50%);
+  --brand-700: hsl(358 47% 41%);
+  --brand-800: hsl(356 46% 35%);
+  --brand-900: hsl(354 43% 27%);
+  --brand-950: hsl(354 51% 16%); */
+
+  --bg-color: var(--brand-100);
+  --text-color: var(--brand-800);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: none;
+  list-style: none;
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  display: flex;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+:focus {
+  outline: 3px solid var(--brand-600);
+  outline-offset: 2px;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.btn-light {
+  background-color: var(--brand-50);
+  color: var(--brand-700);
+  border: 1px solid var(--brand-700);
+}
+
+.btn-light:hover {
+  background-color: var(--brand-100);
+}
+
+.btn-dark {
+  background-color: var(--brand-500);
+  color: var(--brand-50);
+}
+
+.btn-dark:hover {
+  background-color: var(--brand-600);
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.25rem;
+  color: var(--brand-700);
+  border: 1px solid var(--brand-700);
+  background-color: var(--brand-50);
+}
+
+.label {
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.form-inline {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.form {
+  margin-block: 2rem;
+}
+
+.form-field {
+  margin-block: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+#navbar,
+#chat-room,
+#sidebar {
+  padding: 2rem 1rem;
+}
+
+#navbar {
+  width: 15rem;
+  background-color: var(--brand-700);
+  color: var(--brand-50);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#chat-room,
+#sidebar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+#message-list,
+#song-list {
+  height: 100%;
+}
+
+#sidebar {
+  border-left: 1px solid var(--brand-400);
+}
+
+#rooms-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.room:hover {
+  background-color: var(--brand-600);
+}
+
+#user-status {
+  margin-top: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+#user-status .btn {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.room {
+  position: relative;
+}
+
+.room.active {
+  box-shadow: 0 0 0 2px var(--brand-600);
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+
+.user-avatar {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background-color: var(--brand-400);
+}
+
+.user-name {
+  text-transform: capitalize;
+}
+
+#user-status .user-info {
+  justify-content: center;
+  margin-bottom: 1rem;
+  flex-direction: column;
+}
+
+#user-status .user-avatar {
+  width: 4rem;
+  height: 4rem;
+  border: var(--brand-50) 2px solid;
+}
+
+.message-item {
+  display: grid;
+  gap: 0.5rem;
+  align-items: flex-start;
+  border-top: 1px solid var(--brand-200);
+  padding-block: 1rem;
+}
+
+@media (width > 1200px) {
+  .message-item {
+    grid-template-columns: 5rem 1fr;
+  }
+}
