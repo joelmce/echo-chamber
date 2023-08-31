@@ -70,9 +70,6 @@ async function main() {
       },
     },
   });
-
-  // logging out the details can help confirm they've been entered into the database
-  console.log({ alex, nikita });
 }
 
 main()

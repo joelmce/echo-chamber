@@ -1,9 +1,9 @@
 :root {
-  --hues: 200;
+  --hues: 220;
   --saturation: 20%;
   --lightness: 20%;
   --color: hsl(var(--hues) var(--saturation) var(--lightness));
-  --step: 18%;
+  --step: 22%;
 
   --brand-50: color-mix(in oklab, var(--color), white calc(5 * var(--step)));
   --brand-100: color-mix(in oklab, var(--color), white calc(4 * var(--step)));
@@ -16,18 +16,6 @@
   --brand-800: color-mix(in oklab, var(--color), black calc(3 * var(--step)));
   --brand-900: color-mix(in oklab, var(--color), black calc(4 * var(--step)));
   --brand-950: color-mix(in oklab, var(--color), black calc(5 * var(--step)));
-
-  /* --brand-50: hsl(7 57% 97%);
-  --brand-100: hsl(8 56% 95%);
-  --brand-200: hsl(7 53% 90%);
-  --brand-300: hsl(6 55% 82%);
-  --brand-400: hsl(4 53% 71%);
-  --brand-500: hsl(2 51% 60%);
-  --brand-600: hsl(359 44% 50%);
-  --brand-700: hsl(358 47% 41%);
-  --brand-800: hsl(356 46% 35%);
-  --brand-900: hsl(354 43% 27%);
-  --brand-950: hsl(354 51% 16%); */
 
   --bg-color: var(--brand-100);
   --text-color: var(--brand-800);
@@ -123,7 +111,7 @@ body {
 
 #navbar {
   width: 15rem;
-  background-color: var(--brand-700);
+  background-color: var(--brand-600);
   color: var(--brand-50);
   display: flex;
   flex-direction: column;
@@ -154,7 +142,7 @@ body {
 }
 
 .room:hover {
-  background-color: var(--brand-600);
+  background-color: var(--brand-700);
 }
 
 #user-status {
