@@ -1,6 +1,7 @@
 import renderChat from './components/chatComponent.js';
 import renderPlaylist from './components/playlistComponent.js';
 import renderRoomsSidebar from "./components/roomSideComponent.js";
+import renderUserStatus from './components/userStatus/renderUserStatus.js';
 
 function renderPage(room) {
   const pageContainer = document.getElementById('page-container');
@@ -28,3 +29,4 @@ function renderPage(room) {
 }
 
 renderPage(1);
+renderUserStatus();
