@@ -59,26 +59,38 @@ function renderPlaylist(room) {
 
 // render song to playlist que
 function addSongToQ(song) {
-  console.log('song incoming...:', song);
-  const qDisplay = document.querySelector('.que-display');
-  const songContainer = document.createElement('div');
-  songContainer.className = 'song-container';
+    console.log('song incoming...:', song);
+    const qDisplay = document.querySelector('.que-display');
+    const songContainer = document.createElement('div');
+    songContainer.className = 'song-container';
 
-  const songP = document.createElement('p');
-  songP.textContent = song;
-  songP.className = 'songQ';
+    const songP = document.createElement('p');
+    songP.className = 'songQ';
 
-  const upVote = document.createElement('button');
-  upVote.className = 'upvote';
+    const songObj = {
+        songId: '',
+        songTitle: '',
+    }
 
-  const downVote = document.createElement('button');
-  downVote.className = 'downvote';
+    if (song.startsWith('https://www.youtube.com/watch')) {
+        songObj.songId = song.slice(-11);
 
-  songP.append(upVote, downVote);
-
-  songContainer.append(songP);
-
-  qDisplay.appendChild(songContainer);
+        fetch('api/playlist/youtube-api/' + songObj.songId)
+            .then((res) => res.json())
+            .then((data) => {
+                songP.textContent = data.title.replace(/\[[^\]]*]/g, '').trim();
+                songObj.songTitle = data.title.replace(/\[[^\]]*]/g, '').trim();
+                const upVote = document.createElement('button');
+                upVote.className = 'upvote';
+                songP.append(upVote);
+                songContainer.append(songP);
+                qDisplay.appendChild(songContainer);
+                console.log(songObj);
+                return songObj;
+            })
+            .catch((error) => {
+                console.error('error fetching youTube data', error);
+            });
+    }
 }
-
 export default renderPlaylist;
