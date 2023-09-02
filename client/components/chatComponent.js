@@ -51,6 +51,7 @@ function renderChat(room) {
 // display messages client-side
 // USER PARAMETER IS USED FOR USER-AVATAR RENDERING
 export function displayMessage(message, room, user) {
+
     console.log('Message in room:', room);
     const msgDisplay = document.getElementById('chat-display');
 
@@ -79,7 +80,6 @@ export function displayMessage(message, room, user) {
     requestAnimationFrame(() => {
         messageP.style.opacity = '1';
     });
-
 }
 
 // fetch existing messages from database as an array
