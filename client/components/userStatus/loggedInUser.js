@@ -8,9 +8,12 @@ function renderLoggedInUser(user) {
 }
 
 function loggedInUser(username) {
-  return html({id: "user-status"}, [
+  return html({ id: 'user-status' }, [
     html({ class: 'user' }, [
-      html('img', { src: `https://i.pravatar.cc/100?u=${username}`, class: 'user-avatar' }),
+      html('img', {
+        src: `https://i.pravatar.cc/100?u=${username}`,
+        class: 'user-avatar',
+      }),
       html('p', username, { class: 'user-name' }),
     ]),
     html('button', 'Log out', { class: 'btn', onclick: handleLogout }),
