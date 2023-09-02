@@ -1,8 +1,9 @@
 const express = require('express');
 const {
-  getSongsInPlaylist,
-  addSongToPlaylist,
-  newPlaylist,
+    getYouTubeData,
+    getSongsInPlaylist,
+    addSongToPlaylist,
+    newPlaylist,
 } = require('../controllers/playlistController.js');
 
 const router = express.Router();
@@ -14,5 +15,6 @@ const router = express.Router();
 router.get('/:playlistId', getSongsInPlaylist);
 router.post('/:id', addSongToPlaylist);
 router.post('/', newPlaylist);
+router.get('/youtube-api/:videoId', getYouTubeData);
 
 module.exports = router;
