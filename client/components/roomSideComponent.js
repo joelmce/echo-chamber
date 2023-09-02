@@ -25,17 +25,7 @@ function renderRoomsSidebar() {
     const userStatus = newE('div');
     userStatus.id = "user-status";
 
-    const userInfo = newE('div');
-    userInfo.id = "user-info";
-
-    const userAvatar = newE('img');
-    userAvatar.className = "user-avatar";
-
-    const username = newE('p');
-    username.className = "user-name";
-
-    userInfo.append(userAvatar, username);
-    navbar.append(roomsList, userStatus, userInfo);
+    navbar.append(roomsList, userStatus);
     navbarContainer.appendChild(navbar);
 
     pageContainer.appendChild(navbarContainer);
