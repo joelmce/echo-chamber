@@ -63,6 +63,9 @@ function addSongToQ(song) {
             .catch((error) => {
                 console.error('error fetching youTube data', error);
             });
+
+        const iframe = document.querySelector('iframe');
+        iframe.src = "https://www.youtube.com/embed/" + songObj.songId + "?autoplay=1";
     }
 }
 

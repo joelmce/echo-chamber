@@ -1,57 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link
-      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400&display=swap"
-      rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400&display=swap"
+            rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/socket.io-client@4/dist/socket.io.min.js"></script>
     <script type="module" src="./initialize.js"></script>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="styles.css"/>
     <title>Echo Chamber</title>
-  </head>
-  <body>
-    <section id="navbar-section">
-      <h1>Echo Chamber</h1>
-      <ul id="room-list">
+</head>
+<body>
+<section id="navbar-section">
+    <h1>Echo Chamber</h1>
+    <ul id="room-list">
         <li class="room-name">room 1</li>
         <li class="room-name">room 2</li>
-      </ul>
-      <div id="user-status"></div>
-    </section>
+    </ul>
+    <div id="user-status"></div>
+</section>
 
-    <section id="chat-section">
-      <div id="chat-display">
+<section id="chat-section">
+    <div id="chat-display">
         <div class="message-container">
-          <img
-            class="user-avatar"
-            src="https://dl.openseauserdata.com/cache/originImage/files/547152b481352a23d622d9ec71a568e3.png"
-          />
-          <p class="message">user: test</p>
+            <img
+                    class="user-avatar"
+                    src="https://dl.openseauserdata.com/cache/originImage/files/547152b481352a23d622d9ec71a568e3.png"
+            />
+            <p class="message">user: test</p>
         </div>
-      </div>
-      <form id="chat-form" class="form-inline">
-        <input id="chat-input" type="text" class="input" />
+    </div>
+    <form id="chat-form" class="form-inline">
+        <input id="chat-input" type="text" class="input"/>
         <button class="btn">enter</button>
-      </form>
-    </section>
+    </form>
+</section>
 
-    <section id="playlist-section">
-      <iframe src="" frameborder="0"></iframe>
-      <div id="playlist-display">
+<section id="playlist-section">
+    <iframe src="" frameborder="0" height="400"></iframe>
+    <div id="playlist-display">
         <div class="song-container">
-          <p class="songQ">Us Against The World</p>
-          <button class="upvote"></button>
+            <p class="songQ">Us Against The World</p>
+            <button class="upvote"></button>
         </div>
-      </div>
-      <form id="playlist-form" class="form-inline">
-        <input id="playlist-input" type="text" class="input" />
+    </div>
+    <form id="playlist-form" class="form-inline">
+        <input id="playlist-input" type="text" class="input"/>
         <button class="btn">queue</button>
-      </form>
-    </section>
-  </body>
+    </form>
+</section>
+</body>
 </html>
