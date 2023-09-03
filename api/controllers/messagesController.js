@@ -48,7 +48,20 @@ async function getMessages(req, res) {
   res.send(messages);
 }
 
+async function deleteMessage(req, res) {
+  const { messageId } = req.body;
+
+  const message = await prisma.message.delete({
+    where: {
+      messageId: messageId,
+    },
+  });
+
+  res.send(message);
+}
+
 module.exports = {
   addMessage,
   getMessages,
+  deleteMessage,
 };
