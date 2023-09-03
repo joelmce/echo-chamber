@@ -8,7 +8,7 @@ const prisma = require('./prismaClient.js');
 async function main() {
   const alex = await prisma.user.upsert({
     // the 'update' section can empty, but if it's populated it will find users that match the 'where' details and edit that database entry
-    where: { userId: 1 },
+    where: { userId: 'usr_' },
     update: {
       username: 'Harry',
       email: 'harry@email.com',
@@ -29,7 +29,7 @@ async function main() {
   });
 
   const nikita = await prisma.user.upsert({
-    where: { userId: 2 },
+    where: { userId: 'user_' },
     update: {},
     create: {
       username: 'Nikita',
@@ -44,7 +44,7 @@ async function main() {
   });
 
   const alexPlaylist = await prisma.playlist.upsert({
-    where: { playlistId: 1 },
+    where: { playlistId: 'pl_' },
     update: {},
     // if the user doesn't exist, it will create a user with the details provided below
     create: {
@@ -64,8 +64,8 @@ async function main() {
         },
       ],
       room: {
-        connect: {
-          roomId: 1,
+        create: {
+          roomName: 'Test Room',
         },
       },
     },
