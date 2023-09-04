@@ -33,7 +33,7 @@ async function addMessage(req, res) {
  * @param {*} res
  */
 async function getMessages(req, res) {
-  const roomId = parseInt(req.params.roomId);
+  const roomId = req.params.roomId;
   console.log(roomId);
 
   const messages = await prisma.message.findMany({

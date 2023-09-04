@@ -1,4 +1,4 @@
-import html from '/helpers/html.js';
+// import html from '/helpers/html.js';
 import renderLoggedOutUser from './loggedOutUser.js';
 
 function renderLoggedInUser(user) {
