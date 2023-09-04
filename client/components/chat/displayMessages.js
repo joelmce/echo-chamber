@@ -1,5 +1,4 @@
-function displayMessage(message, room, user) {
-  console.log('Message in room:', room);
+export function displayMessage(message, room, user) {
   const msgDisplay = document.getElementById('chat-display');
 
   const messageDiv = document.createElement('div');
@@ -19,8 +18,10 @@ function displayMessage(message, room, user) {
   messageP.className = 'message';
   messageP.textContent = `${user}: ${message}`;
 
-  messageDiv.appendChild(messageP);
-  msgDisplay.insertBefore(messageDiv, msgDisplay.firstChild);
+  messageDiv.append(messageP);
+  msgDisplay.append(messageDiv);
+
+  messageDiv.scrollIntoView({ behavior: 'smooth' });
 
   messageP.style.opacity = '0';
   messageP.offsetHeight;
@@ -29,5 +30,3 @@ function displayMessage(message, room, user) {
     messageP.style.opacity = '1';
   });
 }
-
-export default displayMessage;

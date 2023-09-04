@@ -7,26 +7,24 @@ export class Room {
   static roomId;
   constructor(roomId, roomName) {
     Room.roomId = roomId;
-    this.roomName = roomName;
+    Room.roomName = roomName;
     this.joinRoom();
   }
 
   async joinRoom() {
-    console.log('Joined ' + this.roomName);
+    console.log('Joined ' + Room.roomName);
 
-    const roomData = await fetch(url + Room.roomId).then((response) =>
-      response.json()
-    );
+    document.getElementById('chat-display').innerHTML = '';
 
     const messages = await this.getMessages();
 
     messages.forEach((message) => {
-      displayMessage(message.messageContent, this.roomName, 'Alex');
+      displayMessage(message.messageContent, Room.roomName, 'Alex');
     });
 
-    const chatDisplay = document.getElementById('chat-display');
-    const h2 = html('h2', this.roomName);
-    chatDisplay.replaceChildren(h2);
+    // const chatDisplay = document.getElementById('chat-display');
+    // const h2 = html('h2', this.roomName);
+    // chatDisplay.replaceChildren(h2);
   }
 
   getMessages() {
@@ -34,10 +32,6 @@ export class Room {
   }
 
   static async sendMessage(content) {
-    // roomid, authorid, contentq
-    console.log('Room id:' + Room.roomId);
-    console.log(content);
-
     const messageData = {
       authorId: 'usr_78525ea9-f555-44c5-b719-d9a1ce5d9ea6',
       roomId: Room.roomId,
@@ -45,7 +39,7 @@ export class Room {
     };
 
     // Save message to database
-    const result = await fetch(url, {
+    await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -53,7 +47,6 @@ export class Room {
       body: JSON.stringify(messageData),
     }).then((response) => response.json());
 
-    console.log(result);
-    console.log(messageData);
+    displayMessage(content, Room.roomName, 'Alex');
   }
 }
