@@ -17,30 +17,31 @@ const server = app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
 
+const sessionMiddleware = expressSession({
+  cookie: {
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in ms
+  },
+  secret: process.env.SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true,
+  store: new PrismaSessionStore(new PrismaClient(), {
+    checkPeriod: 2 * 60 * 1000, // 2 minutes in ms
+    dbRecordIdIsSessionId: true,
+    dbRecordIdFunction: undefined,
+  }),
+});
+
 // initialize socketIO server
 const { Server } = require('socket.io');
 const io = new Server(server);
+io.use(sessionMiddleware);
 
 // server static files from client folder, use JSON for requests
 app.use(express.json());
 app.use(express.static('../client'));
 
 // initialize express session
-app.use(
-  expressSession({
-    cookie: {
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in ms
-    },
-    secret: process.env.SESSION_SECRET,
-    resave: true,
-    saveUninitialized: true,
-    store: new PrismaSessionStore(new PrismaClient(), {
-      checkPeriod: 2 * 60 * 1000, // 2 minutes in ms
-      dbRecordIdIsSessionId: true,
-      dbRecordIdFunction: undefined,
-    }),
-  }),
-);
+app.use(sessionMiddleware);
 
 // api routes
 app.use('/api/users', userRouter);
@@ -53,6 +54,7 @@ app.use('/api/sessions', sessionsRouter);
 // connection event (might help with displaying which members are in what room)
 io.on('connection', (socket) => {
   console.log('new connection');
+  console.log('socket.io session:', socket.request.session);
 
   // handles room changing
   const roomType = socket.handshake.query.roomType;
