@@ -20,12 +20,12 @@ export class Room {
     const messages = await this.getMessages();
 
     messages.forEach((message) => {
-      displayMessage(message.messageContent, Room.roomName, 'Alex');
+      displayMessage(
+        message.messageContent,
+        Room.roomName,
+        message.messageAuthor.username
+      );
     });
-
-    // const chatDisplay = document.getElementById('chat-display');
-    // const h2 = html('h2', this.roomName);
-    // chatDisplay.replaceChildren(h2);
   }
 
   getMessages() {
@@ -33,7 +33,7 @@ export class Room {
   }
 
   static async sendMessage(content) {
-    const { userId } = await getUser();
+    const { userId, username } = await getUser();
 
     const messageData = {
       authorId: userId,
@@ -50,6 +50,6 @@ export class Room {
       body: JSON.stringify(messageData),
     }).then((response) => response.json());
 
-    displayMessage(content, Room.roomName, 'Alex');
+    displayMessage(content, Room.roomName, username);
   }
 }
