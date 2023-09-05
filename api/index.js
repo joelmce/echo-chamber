@@ -84,3 +84,5 @@ io.on('connection', (socket) => {
     console.log('client disconnected');
   });
 });
+
+module.exports = app;
