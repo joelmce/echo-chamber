@@ -34,7 +34,7 @@ const sessionMiddleware = expressSession({
 // initialize socketIO server
 const { Server } = require('socket.io');
 const io = new Server(server);
-io.use(sessionMiddleware);
+io.engine.use(sessionMiddleware);
 
 // server static files from client folder, use JSON for requests
 app.use(express.json());
