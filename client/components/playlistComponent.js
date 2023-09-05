@@ -60,8 +60,8 @@ function addSongToQ(song) {
                 songObj.songTitle = data.title.replace(/\[[^\]]*]/g, '').trim();
                 const upVote = document.createElement('button');
                 upVote.className = 'upvote';
-                songP.append(upVote);
                 songContainer.append(songP);
+                songContainer.append(upVote);
                 playlistDisplay.appendChild(songContainer);
                 console.log(songObj);
                 return songObj;
