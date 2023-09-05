@@ -1,153 +1,158 @@
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  text-decoration: none;
-  list-style: none;
-  color: inherit;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+    color: inherit;
 }
 
 :root {
-  font-size: 62.5%;
-  --bg-color-1: #2a2d31;
-  --bg-color-2: #2f3035;
+    font-size: 62.5%;
+    --bg-color-1: #2a2d31;
+    --bg-color-2: #2f3035;
 
-  --text-color-light: #dbdee1;
-  --text-color-dark: black;
+    --text-color-light: #dbdee1;
+    --text-color-dark: black;
 
-  --bg-gradient: linear-gradient(
-    90deg,
-    rgba(0, 201, 255, 0.8) 0%,
-    rgba(146, 254, 157, 0.5) 100%
-  );
+    --bg-gradient: linear-gradient(
+            90deg,
+            rgba(0, 201, 255, 0.8) 0%,
+            rgba(146, 254, 157, 0.5) 100%
+    );
 
-  --border-radius-sm: 0.5rem;
-  --border-radius: 1rem;
-  --border-radius-lg: 1.5rem;
-  --border-radius-full: 100%;
+    --border-radius-sm: 0.5rem;
+    --border-radius: 1rem;
+    --border-radius-lg: 1.5rem;
+    --border-radius-full: 100%;
 
-  --border-color: 2px solid darkslategrey;
+    --border-color: 2px solid darkslategrey;
 }
 
 body {
-  width: 100%;
-  height: 100vh;
-  font-family: 'Fira Code', monospace;
-  display: flex;
-  color: var(--text-color-dark);
-  background-color: var(--bg-color-1);
-  font-size: 1.6rem;
+    width: 100%;
+    height: 100vh;
+    font-family: 'Fira Code', monospace;
+    display: flex;
+    color: var(--text-color-dark);
+    background-color: var(--bg-color-1);
+    font-size: 1.6rem;
 }
 
 #navbar-section,
 #chat-section,
 #playlist-section {
-  width: 100%;
-  flex: 3;
-  display: flex;
-  flex-direction: column;
-  padding: 2rem;
+    width: 100%;
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
 }
 
 #navbar-section {
-  flex: 1;
+    flex: 1;
 }
 
 #chat-section {
-  background-color: var(--bg-color-2);
+    background-color: var(--bg-color-2);
 }
 
 #playlist-section {
 }
 
 .form-inline {
-  color: var(--text-color-light);
-  display: flex;
-  gap: 1rem;
-  margin-top: auto;
-  padding-top: 2rem;
+    color: var(--text-color-light);
+    display: flex;
+    gap: 1rem;
+    margin-top: auto;
+    padding-top: 2rem;
 }
 
 .input {
-  flex: 1;
-  padding: 1rem;
-  background-color: #2a2d31;
-  border: var(--border-color);
-  border-radius: var(--border-radius);
+    flex: 1;
+    padding: 1rem;
+    background-color: #2a2d31;
+    border: var(--border-color);
+    border-radius: var(--border-radius);
 }
 
 .btn {
-  padding: 15px;
-  width: 22%;
-  border: 2px solid darkslategrey;
-  border-radius: var(--border-radius-sm);
-  background-color: #383a40;
-  font-family: 'Fira Code', monospace;
-  font-size: 12px;
-  display: flex;
-  justify-content: center;
-  color: #dbdee1;
+    padding: 15px;
+    width: 22%;
+    border: 2px solid darkslategrey;
+    border-radius: var(--border-radius-sm);
+    background-color: #383a40;
+    font-family: 'Fira Code', monospace;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    color: #dbdee1;
 }
 
 .room-name {
-  list-style-type: none;
-  font-size: 20px;
-  margin: 10px 10px;
-  border: 1px solid darkslategrey;
-  padding: 7px;
-  background: var(--bg-gradient);
-  border-radius: var(--border-radius-sm);
-  cursor: pointer;
+    list-style-type: none;
+    font-size: 20px;
+    margin: 10px 10px;
+    border: 1px solid darkslategrey;
+    padding: 7px;
+    background: var(--bg-gradient);
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
 }
 
 #rooms-list {
-  width: 100%;
-  margin-top: 25px;
-  text-align: center;
-  padding-left: 0;
+    width: 100%;
+    margin-top: 25px;
+    text-align: center;
+    padding-left: 0;
 }
 
 h1 {
-  color: var(--text-color-light);
-  text-align: center;
-  margin-bottom: 1rem;
+    color: var(--text-color-light);
+    text-align: center;
+    margin-bottom: 1rem;
 }
 
 .user-avatar {
-  width: 3rem;
-  height: 3rem;
-  border-radius: var(--border-radius-full);
-  margin-bottom: 1.5rem;
-  margin-right: 1rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--border-radius-full);
+    margin-bottom: 1.5rem;
+    margin-right: 1rem;
 }
 
 .message-container {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 #chat-display,
 #playlist-display {
-  overflow: scroll;
-  max-height: 100vh;
-  margin-top: 2.5rem;
+    overflow: scroll;
+    max-height: 100vh;
+    margin-top: 2.5rem;
 }
 
 .message,
 .song-container {
-  border-radius: var(--border-radius);
-  background: var(--bg-gradient);
-  flex: 1;
-  padding: 1rem 1.2rem;
-  margin-bottom: 1rem;
+    border-radius: var(--border-radius);
+    background: var(--bg-gradient);
+    flex: 1;
+    padding: 1rem 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.song-container {
+    cursor: pointer;
 }
 
 iframe {
-  border: 2px solid var(--text-color-light);
-  border-radius: var(--border-radius);
+    display: none;
+    border: 2px solid var(--text-color-light);
+    border-radius: var(--border-radius);
 }
 
 /* ------------------------- user status ------------------------- */

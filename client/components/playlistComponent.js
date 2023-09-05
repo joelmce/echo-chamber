@@ -36,6 +36,12 @@ function addSongToQ(song) {
     const songContainer = document.createElement('div');
     songContainer.className = 'song-container';
 
+    songContainer.addEventListener('click', function () {
+        const iframe = document.querySelector('iframe');
+        iframe.style.display = 'block';
+        iframe.src = iframe.src = "https://www.youtube.com/embed/" + songObj.songId + "?autoplay=1";
+    })
+
     const songP = document.createElement('p');
     songP.className = 'songQ';
 
@@ -63,9 +69,6 @@ function addSongToQ(song) {
             .catch((error) => {
                 console.error('error fetching youTube data', error);
             });
-
-        const iframe = document.querySelector('iframe');
-        iframe.src = "https://www.youtube.com/embed/" + songObj.songId + "?autoplay=1";
     }
 }
 
