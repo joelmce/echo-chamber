@@ -1,7 +1,8 @@
 import html from '/helpers/html.js';
 import { displayMessage } from './displayMessages.js';
 import getUser from '/helpers/getUser.js';
-import chatSocket from '/helpers/chatSocket.js';
+import socket from '/helpers/socket.js';
+import renderPlaylist from '../playlistComponent.js';
 
 const url = 'http://localhost:3000/api/message/';
 
@@ -11,7 +12,8 @@ export class Room {
     Room.roomId = roomId;
     Room.roomName = roomName;
     this.joinRoom();
-    chatSocket.emit('join-room', roomId);
+    socket.emit('join-room', roomId);
+    renderPlaylist(roomId);
   }
 
   async joinRoom() {
@@ -44,8 +46,6 @@ export class Room {
       body: JSON.stringify(messageData),
     }).then((response) => response.json());
 
-    console.log('roomid is:', Room.roomId);
-
-    chatSocket.emit('new message', content, username, Room.roomId);
+    socket.emit('new message', content, username, Room.roomId);
   }
 }

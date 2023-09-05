@@ -1,25 +1,21 @@
 // RENDER PLAYLIST UI
+import socket from '/helpers/socket.js';
 
-function renderPlaylist(room) {
+function renderPlaylist(roomId) {
   const playlistForm = document.getElementById('playlist-form');
   const playlistInput = document.getElementById('playlist-input');
 
-  // initialize socket for playlist
-  const playlistSocket = io('http://localhost:3000');
-
   // handle socket message events from server, render song to que
-  playlistSocket.on('newSong', (newSong) => {
-    console.log('song from server:', newSong);
-    addSongToQ(newSong);
+  socket.on('share song', (song) => {
+    addSongToQ(song);
   });
 
   // send message to socket server on form submit
   playlistForm.addEventListener('submit', (event) => {
     event.preventDefault();
-    console.log(playlistInput.value);
-    const song = playlistInput.value;
-    if (song.trim() !== '') {
-      playlistSocket.emit('message', song);
+    const song = playlistInput.value.trim();
+    if (song) {
+      socket.emit('new song', song, roomId);
       playlistInput.value = '';
     }
   });
@@ -27,7 +23,7 @@ function renderPlaylist(room) {
 
 // render song to playlist que
 function addSongToQ(song) {
-  console.log('song incoming...:', song);
+  // console.log('song incoming...:', song);
   const playlistDisplay = document.getElementById('playlist-display');
   const songContainer = document.createElement('div');
   songContainer.className = 'song-container';

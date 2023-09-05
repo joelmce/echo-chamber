@@ -1,9 +1,9 @@
 import { Room } from './chat/Room.js';
-import chatSocket from '/helpers/chatSocket.js';
+import socket from '/helpers/socket.js';
 import { displayMessage } from './chat/displayMessages.js';
 
 // RENDER CHAT-BOX UI
-function renderChat(room) {
+function renderChat() {
   // boring html component rendering
   const chatForm = document.getElementById('chat-form');
   const msgDisplay = document.getElementById('chat-display');
@@ -11,8 +11,7 @@ function renderChat(room) {
   // initialize socket for chat
 
   // handle socket message events from server, render messages and store in database
-  chatSocket.on('share message', (message, authorName) => {
-    console.log('share message arrived');
+  socket.on('share message', (message, authorName) => {
     displayMessage(message, authorName);
   });
 

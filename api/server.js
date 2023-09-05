@@ -62,12 +62,16 @@ io.on('connection', (socket) => {
     io.to(roomId).emit('share message', message, authorName);
   });
 
+  socket.on('new song', (song, roomId) => {
+    console.log('new song ftw:', song, roomId);
+    io.to(roomId).emit('share song', song);
+  });
+
   socket.on('join-room', (roomId) => {
     const rooms = socket.rooms;
     for (const room of rooms) {
       if (room !== socket.id) rooms.delete(room);
     }
-
     socket.join(roomId);
   });
 
