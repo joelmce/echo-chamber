@@ -1,5 +1,6 @@
 import html from '/helpers/html.js';
 import { displayMessage } from './displayMessages.js';
+import getUser from '/helpers/getUser.js';
 
 const url = 'http://localhost:3000/api/message/';
 
@@ -32,8 +33,10 @@ export class Room {
   }
 
   static async sendMessage(content) {
+    const { userId } = await getUser();
+
     const messageData = {
-      authorId: 'usr_78525ea9-f555-44c5-b719-d9a1ce5d9ea6',
+      authorId: userId,
       roomId: Room.roomId,
       content: content,
     };

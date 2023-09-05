@@ -41,8 +41,13 @@ async function getMessages(req, res) {
       roomId: roomId,
     },
     select: {
-      authorId: true,
       messageContent: true,
+      messageAuthor: {
+        select: {
+          userId: true,
+          username: true,
+        },
+      },
     },
   });
   res.send(messages);
