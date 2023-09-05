@@ -6,7 +6,6 @@ export default function rooms() {
       if (!response.ok) {
         throw new Error('No response from DB');
       }
-      console.log(response);
       return response.json();
     })
     .catch((error) => {

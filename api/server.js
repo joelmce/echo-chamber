@@ -54,16 +54,26 @@ app.use('/api/sessions', sessionsRouter);
 // connection event (might help with displaying which members are in what room)
 io.on('connection', (socket) => {
   console.log('new connection');
-  console.log('socket.io session:', socket.request.session);
-
-  // handles room changing
-  const roomType = socket.handshake.query.roomType;
-  socket.join(roomType);
+  // console.log('socket.io session:', socket.request.session);
 
   // on message event send message to the correct room
-  socket.on('message', (message) => {
-    io.to(roomType).emit('message', message);
+  socket.on('new message', (message, authorName, roomId) => {
+    console.log(message, authorName, roomId);
+    io.to(roomId).emit('share message', message, authorName);
   });
+
+  socket.on('join-room', (roomId) => {
+    const rooms = socket.rooms;
+    for (const room of rooms) {
+      if (room !== socket.id) rooms.delete(room);
+    }
+
+    socket.join(roomId);
+  });
+
+  // socket.on('newSong', (newSong) => {
+  //   io.emit();
+  // }
 
   // disconnect event (might help with displaying which members are in what room)
   socket.on('disconnect', () => {

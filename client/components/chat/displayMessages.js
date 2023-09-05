@@ -1,4 +1,4 @@
-export function displayMessage(message, room, user) {
+export function displayMessage(message, user) {
   const msgDisplay = document.getElementById('chat-display');
 
   const messageDiv = document.createElement('div');

@@ -1,5 +1,6 @@
 import { Room } from './chat/Room.js';
 import chatSocket from '/helpers/chatSocket.js';
+import { displayMessage } from './chat/displayMessages.js';
 
 // RENDER CHAT-BOX UI
 function renderChat(room) {
@@ -9,16 +10,10 @@ function renderChat(room) {
   const chatInput = document.getElementById('chat-input');
   // initialize socket for chat
 
-  // client-side handling of new socket connection
-  chatSocket.on('connect', () => {
-    console.log('Socket.IO connection opened');
-  });
-
   // handle socket message events from server, render messages and store in database
-  chatSocket.on('message', (message) => {
-    console.log('message from server:', message);
-    // displayMessage(message, room);
-    // sendMessage(message, room);
+  chatSocket.on('share message', (message, authorName) => {
+    console.log('share message arrived');
+    displayMessage(message, authorName);
   });
 
   // send message to socket server on form submit
@@ -26,10 +21,7 @@ function renderChat(room) {
     event.preventDefault();
     const message = chatInput.value;
     Room.sendMessage(message);
-    if (message.trim() !== '') {
-      // chatSocket.emit('message', message);
-      chatInput.value = '';
-    }
+    chatInput.value = '';
   });
 }
 
