@@ -9,6 +9,7 @@ const sessionsRouter = require('./routes/sessionsRouter.js');
 const expressSession = require('express-session');
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 const { PrismaClient } = require('@prisma/client');
+const cookieParser = require('cookie-parser');
 
 // initialize express server
 const app = express();
@@ -34,10 +35,11 @@ const sessionMiddleware = expressSession({
 // initialize socketIO server
 const { Server } = require('socket.io');
 const io = new Server(server);
-io.use(sessionMiddleware);
+io.engine.use(sessionMiddleware);
 
 // server static files from client folder, use JSON for requests
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.static('../client'));
 
 // initialize express session
