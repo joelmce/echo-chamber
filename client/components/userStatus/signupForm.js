@@ -25,7 +25,7 @@ function handleSignup(e) {
   const formData = new FormData(form);
   const data = Object.fromEntries(formData);
 
-  fetch('http://localhost:3000/api/users', {
+  fetch(`/api/users`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

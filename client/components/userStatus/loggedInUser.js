@@ -21,7 +21,7 @@ function loggedInUser(username) {
 }
 
 function handleLogout() {
-  fetch('http://localhost:3000/api/sessions', {
+  fetch('/api/sessions', {
     method: 'DELETE',
   })
     .then(renderLoggedOutUser)

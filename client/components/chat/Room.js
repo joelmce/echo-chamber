@@ -4,7 +4,7 @@ import getUser from '/helpers/getUser.js';
 import socket from '/helpers/socket.js';
 import renderPlaylist from '../playlistComponent.js';
 
-const url = 'http://localhost:3000/api/message/';
+const url = `/api/message/`;
 
 export class Room {
   static roomId;

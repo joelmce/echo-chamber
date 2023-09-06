@@ -24,7 +24,7 @@ function handleLogin(e) {
   const formData = new FormData(form);
   const data = Object.fromEntries(formData);
 
-  fetch('http://localhost:3000/api/sessions', {
+  fetch(`/api/sessions`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

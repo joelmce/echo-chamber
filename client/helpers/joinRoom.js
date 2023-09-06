@@ -1,9 +1,9 @@
 const socket = io('http://localhost:3000');
 
 async function userId() {
-  const { success, data } = await fetch(
-    'http://localhost:3000/api/sessions'
-  ).then((res) => res.json());
+  const { success, data } = await fetch('/api/sessions').then((res) =>
+    res.json()
+  );
 
   return data.userId;
 }

@@ -1,5 +1,5 @@
 export default function rooms() {
-  const url = `http://localhost:3000/api/room/`;
+  const url = `/api/room/`;
 
   const rooms = fetch(url)
     .then((response) => {

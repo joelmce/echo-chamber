@@ -1,5 +1,5 @@
 class User {
-  #url = 'http://localhost:3000/api/session';
+  #url = '/api/session';
 
   static async getUserId() {
     const data = fetch(this.#url);
