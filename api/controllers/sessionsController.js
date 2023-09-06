@@ -1,6 +1,10 @@
 const { isValidPassword } = require('../helpers/bcrypt.js');
 const { getUserByEmail } = require('./usersController.js');
 
+/**
+ * Check if the user is currently logged in
+ * @returns {Boolean}
+ */
 function isLoggedIn(req, res) {
   if (req.session.userId) {
     return res.status(200).json({ success: true, data: req.session });
@@ -8,6 +12,9 @@ function isLoggedIn(req, res) {
   return res.status(401).json({ success: false, error: 'Unauthorized' });
 }
 
+/**
+ * Log the user in
+ */
 async function login(req, res) {
   const { email, password } = req.body;
 
@@ -31,6 +38,9 @@ async function login(req, res) {
   }
 }
 
+/**
+ * Log the user out
+ */
 function logout(req, res) {
   req.session.destroy();
   res.status(200).json({ success: true, message: 'Logged out' });

@@ -10,7 +10,9 @@ const expressSession = require('express-session');
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 const { PrismaClient } = require('@prisma/client');
 
-// initialize express server
+/**
+ * Initialise the server components
+ */
 const app = express();
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
@@ -31,39 +33,40 @@ const sessionMiddleware = expressSession({
   }),
 });
 
-// initialize socketIO server
+/* nitialize socketIO server */
 const { Server } = require('socket.io');
 const io = new Server(server);
 io.engine.use(sessionMiddleware);
 
-// server static files from client folder, use JSON for requests
+/* Serve static files from client folder, use JSON for API requests */
 app.use(express.json());
 app.use(express.static('../client'));
 
-// initialize express session
+/* Initialize express session */
 app.use(sessionMiddleware);
 
-// api routes
+/* API routes */
 app.use('/api/users', userRouter);
 app.use('/api/playlist', playlistRouter);
 app.use('/api/room', roomRouter);
 app.use('/api/message', messageRouter);
 app.use('/api/sessions', sessionsRouter);
 
-// handle socketIO events - listen for messages and fetch room via query params
-// connection event (might help with displaying which members are in what room)
+/**
+ * Handle socketIO events - listen for messages and fetch room via query params
+ * connection event (might help with displaying which members are in what room)
+ */
 io.on('connection', (socket) => {
-  console.log('new connection');
-  // console.log('socket.io session:', socket.request.session);
+  console.log('A new user has connected');
 
-  // on message event send message to the correct room
+  /* On message event send message to the correct room */
   socket.on('new message', (message, authorName, roomId) => {
-    console.log(message, authorName, roomId);
     io.to(roomId).emit('share message', message, authorName);
   });
 
+  /* When a user adds the song to the playlist */
   socket.on('new song', (song, roomId) => {
-    console.log('new song ftw:', song, roomId);
+    // console.log('new song ftw:', song, roomId);
     io.to(roomId).emit('share song', song);
   });
 
@@ -79,7 +82,8 @@ io.on('connection', (socket) => {
   //   io.emit();
   // }
 
-  // disconnect event (might help with displaying which members are in what room)
+  /* Disconnect event  */
+  /* TODO: Add members online */
   socket.on('disconnect', () => {
     console.log('client disconnected');
   });

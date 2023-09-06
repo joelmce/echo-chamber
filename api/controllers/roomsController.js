@@ -1,10 +1,16 @@
 const prisma = require('../database/prismaClient');
 
+/**
+ * GET all rooms currently existing
+ */
 async function getAllRooms(req, res) {
   const allRooms = await prisma.room.findMany();
   res.json(allRooms);
 }
 
+/**
+ * Create a room
+ */
 async function createRoom(req, res) {
   const { roomName } = req.body;
 
@@ -17,6 +23,9 @@ async function createRoom(req, res) {
   res.json(room);
 }
 
+/**
+ * Return data of a room from an id
+ */
 async function getRoomById(req, res) {
   const roomId = req.params.id;
   console.log(roomId);

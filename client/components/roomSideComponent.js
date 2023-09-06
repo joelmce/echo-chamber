@@ -1,6 +1,5 @@
 import rooms from './roomList.js';
 import { Room } from './chat/Room.js';
-const newE = (tag) => document.createElement(tag);
 
 function renderRoomsSidebar() {
   const roomsList = document.getElementById('room-list');

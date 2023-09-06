@@ -1,5 +1,6 @@
 import html from '/helpers/html.js';
 import renderLoggedOutUser from './loggedOutUser.js';
+import { User } from '../../helpers/User.js';
 
 function renderLoggedInUser(user) {
   const { username } = user;
@@ -21,7 +22,7 @@ function loggedInUser(username) {
 }
 
 function handleLogout() {
-  fetch('http://localhost:3000/api/sessions', {
+  fetch('/api/sessions', {
     method: 'DELETE',
   })
     .then(renderLoggedOutUser)

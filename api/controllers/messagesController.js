@@ -1,9 +1,7 @@
 const prisma = require('../database/prismaClient');
 
 /**
- * Save a message to the database in the given room id.
- * @param {*} req
- * @param {*} res
+ * POST a message to the database in the given room id.
  */
 async function addMessage(req, res) {
   const { authorId, roomId, content } = req.body;
@@ -28,9 +26,7 @@ async function addMessage(req, res) {
 }
 
 /**
- * Returns all the messages given with a room id
- * @param {*} req
- * @param {*} res
+ * GET all the messages given with a room id
  */
 async function getMessages(req, res) {
   const roomId = req.params.roomId;
@@ -53,6 +49,9 @@ async function getMessages(req, res) {
   res.send(messages);
 }
 
+/**
+ * DELETE message in database
+ */
 async function deleteMessage(req, res) {
   const { messageId } = req.body;
 

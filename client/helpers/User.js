@@ -1,17 +1,14 @@
-class User {
-  #url = 'http://localhost:3000/api/session';
-
-  static async getUserId() {
-    const data = fetch(this.#url);
-    return data.userId;
+export class User {
+  constructor(userId, username) {
+    this.userId = userId;
+    this.username = username;
   }
 
-  static async getUsername() {
-    const data = fetch(this.#url);
-    return data.username;
+  static getUserId() {
+    return this.userId;
   }
 
-  static async logout() {
-    //logout getUserId()
+  static getUsername() {
+    return this.username;
   }
 }

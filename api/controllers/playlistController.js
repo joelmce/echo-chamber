@@ -1,5 +1,8 @@
 const prisma = require('../database/prismaClient');
 
+/**
+ * POST a new playlist to the room
+ */
 async function newPlaylist(req, res) {
   const { playlistName, roomId } = req.body;
 
