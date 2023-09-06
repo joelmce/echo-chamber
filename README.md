@@ -21,3 +21,12 @@ Firstly, early on it was clear that we would have a hard time being on the same 
 This was our first time implementing SocketIO in a more complex project outside of a simple chat feature. A lot of bugs had appeared that took a lot of our time away
 
 ## Things we did well
+
+## TODO
+
+**Joel**
+
+- Add room information above the chatbox (roomname, connected users etc)
+- Allow users to change their alias
+- Broadcast when a user connects to a room
+- Add rooms dynamically if the user chooses to
