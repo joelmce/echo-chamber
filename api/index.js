@@ -34,11 +34,12 @@ const sessionMiddleware = expressSession({
 // initialize socketIO server
 const { Server } = require('socket.io');
 const io = new Server(server);
+const path = require('path');
 io.engine.use(sessionMiddleware);
 
 // server static files from client folder, use JSON for requests
 app.use(express.json());
-app.use('/', express.static('../client'));
+app.use(express.static(path.join(__dirname, '../client')));
 
 // initialize express session
 app.use(sessionMiddleware);
