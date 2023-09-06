@@ -2,8 +2,7 @@
   "name": "echo-chamber",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
-  "type": "commonjs",
+  "main": "index.js",
   "scripts": {
     "start": "./node_modules/.bin/nodemon index.js"
   },
