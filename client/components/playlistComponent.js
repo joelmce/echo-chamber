@@ -56,7 +56,6 @@ function addSongToQ(song) {
         songContainer.append(songP);
         songContainer.append(upVote);
         playlistDisplay.appendChild(songContainer);
-        console.log(songObj);
         return songObj;
       })
       .catch((error) => {

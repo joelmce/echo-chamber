@@ -22,7 +22,6 @@ async function addMessage(req, res) {
     },
   });
   res.send(message);
-  console.log('message sent:', message);
 }
 
 /**
@@ -30,7 +29,6 @@ async function addMessage(req, res) {
  */
 async function getMessages(req, res) {
   const roomId = req.params.roomId;
-  console.log(roomId);
 
   const messages = await prisma.message.findMany({
     where: {

@@ -62,8 +62,6 @@ export class Room {
       content: content,
     };
 
-    console.log(messageData);
-
     /* Save message to database */
     await fetch(url, {
       method: 'POST',
@@ -74,6 +72,6 @@ export class Room {
     }).then((response) => response.json());
 
     /* Tell the server there is a new message incoming */
-    socket.emit('new message', content, User.getUsername(), Room.roomId);
+    socket.emit('new message', content, username, Room.roomId);
   }
 }

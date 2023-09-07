@@ -11,7 +11,7 @@ const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 const { PrismaClient } = require('@prisma/client');
 
 /**
- * Initialise the server components
+ * Initialize the server components
  */
 const app = express();
 const port = process.env.PORT || 3000;
@@ -34,7 +34,7 @@ const sessionMiddleware = expressSession({
   }),
 });
 
-/* nitialize socketIO server */
+/* initialize socketIO server */
 const { Server } = require('socket.io');
 const io = new Server(server);
 io.engine.use(sessionMiddleware);
@@ -67,7 +67,6 @@ io.on('connection', (socket) => {
 
   /* When a user adds the song to the playlist */
   socket.on('new song', (song, roomId) => {
-    // console.log('new song ftw:', song, roomId);
     io.to(roomId).emit('share song', song);
   });
 
@@ -78,10 +77,6 @@ io.on('connection', (socket) => {
     }
     socket.join(roomId);
   });
-
-  // socket.on('newSong', (newSong) => {
-  //   io.emit();
-  // }
 
   /* Disconnect event  */
   /* TODO: Add members online */
