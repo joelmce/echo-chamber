@@ -66,6 +66,7 @@ export class Room {
    */
   static async sendMessage(content) {
     const { userId, username } = await getUser();
+    console.log(Room.roomId);
 
     const messageData = {
       authorId: userId,
