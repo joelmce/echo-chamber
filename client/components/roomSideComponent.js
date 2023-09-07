@@ -1,5 +1,5 @@
 import rooms from './roomList.js';
-const newE = (tag) => document.createElement(tag);
+import { Room } from './chat/Room.js';
 
 function renderRoomsSidebar() {
   const roomsList = document.getElementById('room-list');
@@ -8,10 +8,18 @@ function renderRoomsSidebar() {
     response.forEach((room) => {
       const button = document.createElement('li');
       button.textContent = room.roomName;
-      button.id = room.roomId;
       button.className = 'room-name';
       roomsList.append(button);
-      console.log(button);
+
+      button.addEventListener('click', () => {
+        const activeRoom = document.querySelector('.active-room');
+        activeRoom?.classList.remove('active-room');
+        button.classList.add('active-room');
+
+        const chatTitle = document.getElementById('chat-title');
+        chatTitle.textContent = room.roomName;
+        new Room(room.roomId, room.roomName);
+      });
     });
   });
 }
