@@ -28,7 +28,7 @@
   --border-radius-lg: 1.5rem;
   --border-radius-full: 100%;
 
-  --border-color: 2px solid darkslategrey;
+  --border: 2px solid darkslategrey;
 }
 
 body {
@@ -75,7 +75,7 @@ chat-section {
   flex: 1;
   padding: 1rem;
   background-color: #2a2d31;
-  border: var(--border-color);
+  border: var(--border);
   border-radius: var(--border-radius);
   color: var(--text-color-light);
 }
@@ -187,8 +187,7 @@ h1 {
 }
 
 iframe {
-  display: none;
-  border: 2px solid var(--text-color-light);
+  border: var(--border);
   border-radius: var(--border-radius);
 }
 

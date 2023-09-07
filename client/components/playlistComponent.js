@@ -47,7 +47,6 @@ export function addSongToQ(song) {
 
   songContainer.addEventListener('click', function () {
     const iframe = document.querySelector('iframe');
-    iframe.style.display = 'block';
     iframe.src = iframe.src =
       'https://www.youtube.com/embed/' + songObj.songId + '?autoplay=1';
   });
