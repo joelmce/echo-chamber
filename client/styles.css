@@ -162,7 +162,7 @@ h1 {
 .song {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 1rem;
 }
 
 .song button {
@@ -174,9 +174,16 @@ h1 {
 }
 
 .song-name {
+  margin-right: auto;
 }
 
-.song-like {
+.like-btn {
+}
+.like-btn.liked {
+  background-color: green;
+}
+
+.play-btn {
 }
 
 iframe {
@@ -185,13 +192,13 @@ iframe {
   border-radius: var(--border-radius);
 }
 
-.upvote,
+/* .like,
 .play {
   all: unset;
   padding: 1rem;
   background-color: green;
   border-radius: var(--border-radius);
-}
+} */
 
 .form-title,
 .label,

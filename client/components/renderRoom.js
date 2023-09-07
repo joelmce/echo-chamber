@@ -1,8 +1,10 @@
 import html from '/helpers/html.js';
 import { Song } from './Song.js';
-import { getSongs } from '/helpers/getSongs.js';
-import { getRoom } from '/helpers/rooms.js';
-import { socket } from '/helpers/socket.js';
+import { getSongs, addSong } from '../helpers/songs.js';
+import { getRoom } from '../helpers/rooms.js';
+import { socket } from '../helpers/socket.js';
+import { parseYouTubeURL } from '../helpers/parseYouTubeURL.js';
+import { isValidURL } from '../helpers/isValidURL.js';
 
 function renderRoom(room) {
   renderChat(room);
@@ -11,47 +13,40 @@ function renderRoom(room) {
 
 function renderChat(room) {}
 
-function renderPlaylist(room) {
-  renderSongs();
-  listenForPlaylistSubmit();
-}
-
-async function renderSongs() {
+async function renderPlaylist(room) {
   const playlistDisplay = document.getElementById('playlist-display');
-  const songsData = await getSongs();
+  const songsData = await getSongs(room.roomId);
   const songs = await songsData.map(Song);
   playlistDisplay.replaceChildren(...songs);
 }
 
-function listenForPlaylistSubmit() {
+export function listenForPlaylistSubmit() {
   const playlistForm = document.getElementById('playlist-form');
   playlistForm.addEventListener('submit', handleNewSong);
 }
 
-function handleNewSong(e) {
+async function handleNewSong(e) {
   e.preventDefault();
-  const playlistInput = document.getElementById('playlist-input');
-  const songURL = playlistInput.value.trim();
+  const form = e.target;
+  const formData = new FormData(form);
+  const songUrl = formData.get('song-url');
 
-  const isEmpty = !songURL;
-  const isNotURL = !new URL(songURL);
-  if (isEmpty || isNotURL) return;
+  const isEmpty = !songUrl;
+  const isInvalidURL = !isValidURL(songUrl);
+  if (isEmpty || isInvalidURL) return;
 
+  const { songId, songName } = await parseYouTubeURL(songUrl);
   const { roomId } = getRoom();
 
-  //1. send to socket
-  socket.emit('new song', songURL, roomId);
-
-  //2. send to db
-  const songData = { songURL, roomId };
-
-  fetch(`/api/playlist`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(songData),
+  addSong({
+    roomId,
+    songId,
+    songName,
+    songUrl,
+    songLikes: 0,
   });
 
-  playlistInput.value = '';
+  form.reset();
 }
 
 export { renderRoom };

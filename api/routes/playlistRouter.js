@@ -11,7 +11,7 @@ const router = express.Router();
  * Query the database for all the registers users
  * @returns {Object} allUsers: A json object with the data
  */
-router.get('/:id', getSongsInPlaylist);
+router.get('/:roomId', getSongsInPlaylist);
 router.post('/', addSongToPlaylist);
 router.get('/youtube-api/:id', getYouTubeData);
 

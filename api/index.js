@@ -66,9 +66,8 @@ io.on('connection', (socket) => {
   });
 
   /* When a user adds the song to the playlist */
-  socket.on('new song', (song, roomId) => {
-    console.log('----- Rooms:', socket.rooms);
-    io.to(roomId).emit('share song', song);
+  socket.on('new song', (song) => {
+    io.to(song.roomId).emit('share song', song);
   });
 
   socket.on('join-room', (roomId) => {

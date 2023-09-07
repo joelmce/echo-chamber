@@ -1,23 +1,24 @@
 import html from '/helpers/html.js';
 import { parseYouTubeURL } from '/helpers/parseYouTubeURL.js';
 
-async function Song(songURL) {
-  const { id, name } = await parseYouTubeURL(songURL);
-
-  return html('div', { class: 'song' }, [
-    html('p', name, { class: 'song-name' }),
+function Song(song) {
+  const { songId, songName, songLikes } = song;
+  return html('div', { class: 'song', dataset: song }, [
+    html('p', songName, { class: 'song-name' }),
     html('button', 'Play', {
-      class: 'song-play',
-      onclick: () => handlePlay(id),
+      class: 'play-btn',
+      onclick: () => handlePlay(songId),
     }),
-    html('button', 'Like', { class: 'song-like', onclick: handleUpvote }),
+    html('button', `${songLikes} Like`, {
+      class: 'like-btn',
+      onclick: handleLike,
+    }),
   ]);
 }
 
-async function renderSong(song) {
+function renderSong(song) {
   const playlistDisplay = document.getElementById('playlist-display');
-  const songElement = await Song(song);
-  playlistDisplay.append(songElement);
+  playlistDisplay.append(Song(song));
 }
 
 function handlePlay(id) {
@@ -26,6 +27,9 @@ function handlePlay(id) {
   iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1`;
 }
 
-function handleUpvote() {}
+function handleLike(e) {
+  e.target.classList.toggle('liked');
+  // TODO: update song likes in database
+}
 
 export { Song, renderSong };
