@@ -4,10 +4,14 @@ import { handlePlay } from './handlePlay.js';
 import { handleLike } from './handleLike.js';
 
 async function renderAllSongs(room) {
-  const playlistDisplay = document.getElementById('playlist-display');
   const data = await getAllSongs(room.roomId);
-  const allSongs = await data.map(Song);
-  playlistDisplay.replaceChildren(...allSongs);
+  const songs = await data.map(Song);
+
+  const playlistDisplay = document.getElementById('playlist-display');
+  playlistDisplay.replaceChildren(...songs);
+
+  const iframe = document.querySelector('iframe');
+  iframe.src = '';
 }
 
 function renderSong(song) {
