@@ -1,5 +1,6 @@
 import { displayMessage } from './displayMessages.js';
 import { User } from '../../helpers/User.js';
+import getUser from '../../helpers/getUser.js';
 import socket from '/helpers/socket.js';
 import renderPlaylist from '../playlistComponent.js';
 
@@ -53,10 +54,10 @@ export class Room {
    * is trying to send
    */
   static async sendMessage(content) {
-    // const { userId, username } = User.getUser();
+    const { userId, username } = await getUser();
 
     const messageData = {
-      authorId: User.getUserId(),
+      authorId: userId,
       roomId: Room.roomId,
       content: content,
     };
