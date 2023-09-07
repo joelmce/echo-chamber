@@ -1,5 +1,5 @@
 import { Room } from './chat/Room.js';
-import socket from '/helpers/socket.js';
+import { socket } from '/helpers/socket.js';
 import { displayMessage } from './chat/displayMessages.js';
 
 /* Render chat box UI */

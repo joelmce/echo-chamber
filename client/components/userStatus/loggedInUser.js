@@ -1,6 +1,5 @@
 import html from '/helpers/html.js';
 import renderLoggedOutUser from './loggedOutUser.js';
-import { User } from '../../helpers/User.js';
 
 function renderLoggedInUser(user) {
   const { username } = user;

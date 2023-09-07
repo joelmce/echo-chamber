@@ -1,37 +1,17 @@
 const prisma = require('../database/prismaClient');
 
 /**
- * POST a new playlist to the room
- */
-async function newPlaylist(req, res) {
-  const { playlistName, roomId } = req.body;
-
-  const playlist = await prisma.playlist.create({
-    data: {
-      playlistName: playlistName,
-      room: {
-        connect: {
-          roomId: roomId,
-        },
-      },
-    },
-  });
-
-  res.json(playlist);
-}
-
-/**
  * GET /api/playlist/:id
  * Returns all the songs in the given playlist
  * @param {Number} req: playlist id
  * @param {Object} res: songs in playlist
  */
 async function getSongsInPlaylist(req, res) {
-  const { playlistId } = req.params;
+  const { id } = req.params;
 
-  const songs = await prisma.playlist.findMany({
+  const songs = await prisma.room.findMany({
     where: {
-      playlistId: Number(playlistId),
+      roomId: id,
     },
     select: {
       songs: true,
@@ -46,19 +26,19 @@ async function getSongsInPlaylist(req, res) {
  * Add a song to a playlist
  */
 async function addSongToPlaylist(req, res) {
-  const { id } = req.params;
-  const { songLink, songName } = req.body;
+  const { songURL, roomId } = req.body;
 
-  const addSong = await prisma.playlist.update({
+  console.log('songURL', songURL);
+  console.log('roomId', roomId);
+
+  const addSong = await prisma.room.update({
     where: {
-      playlistId: Number(id),
+      roomId,
     },
     data: {
-      songs: {
-        push: {
-          songName: songName,
-          songLink: songLink,
-        },
+      push: {
+        songURL,
+        songLikes: 0,
       },
     },
   });
@@ -67,11 +47,13 @@ async function addSongToPlaylist(req, res) {
 }
 
 async function getYouTubeData(req, res) {
-  const { videoId } = req.params;
+  const { id } = req.params;
   const apiKey = process.env.YOUTUBE_API_KEY;
 
+  console.log('youtube id', id);
+
   const response = await fetch(
-    `https://youtube.googleapis.com/youtube/v3/videos?id=${videoId}&key=${apiKey}&part=snippet`
+    `https://youtube.googleapis.com/youtube/v3/videos?id=${id}&key=${apiKey}&part=snippet`
   );
   const data = await response.json();
   const title = data.items[0].snippet.title;
@@ -82,6 +64,5 @@ async function getYouTubeData(req, res) {
 module.exports = {
   getSongsInPlaylist,
   addSongToPlaylist,
-  newPlaylist,
   getYouTubeData,
 };

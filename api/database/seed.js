@@ -42,34 +42,6 @@ async function main() {
       },
     },
   });
-
-  const alexPlaylist = await prisma.playlist.upsert({
-    where: { playlistId: 'pl_' },
-    update: {},
-    // if the user doesn't exist, it will create a user with the details provided below
-    create: {
-      playlistName: "Alex's Playlist",
-      songs: [
-        {
-          songName: 'Apple',
-          songLikes: 3,
-        },
-        {
-          songName: 'Banana',
-          songLikes: 2,
-        },
-        {
-          songName: 'Cherry',
-          songLikes: 0,
-        },
-      ],
-      room: {
-        create: {
-          roomName: 'Test Room',
-        },
-      },
-    },
-  });
 }
 
 main()

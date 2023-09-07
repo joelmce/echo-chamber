@@ -1,7 +1,8 @@
-import socket from '/helpers/socket.js';
+import { socket } from '/helpers/socket.js';
+import { Room } from './chat/Room.js';
 
 /* Render playlist UI */
-function renderPlaylist(roomId) {
+function renderPlaylist() {
   const playlistForm = document.getElementById('playlist-form');
   const playlistInput = document.getElementById('playlist-input');
 
@@ -13,17 +14,33 @@ function renderPlaylist(roomId) {
   /* send message to socket server on form submit */
   playlistForm.addEventListener('submit', (event) => {
     event.preventDefault();
-
     const song = playlistInput.value.trim();
+    console.log('form song URL', song);
+    if (song.startsWith('https://www.youtube.com/watch')) {
+      const url = '/api/playlist/' + Room.roomId;
+      console.log(url);
+      /* Save song to database */
+      const messageData = {
+        songURL: song,
+      };
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(messageData),
+      }).then((response) => response.json());
+    }
+
     if (song) {
-      socket.emit('new song', song, roomId);
+      socket.emit('new song', song, Room.roomId);
       playlistInput.value = '';
     }
   });
 }
 
 /* render song to playlist queue */
-function addSongToQ(song) {
+export function addSongToQ(song) {
   const playlistDisplay = document.getElementById('playlist-display');
   const songContainer = document.createElement('div');
   songContainer.className = 'song-container';
@@ -56,6 +73,7 @@ function addSongToQ(song) {
         songContainer.append(songP);
         songContainer.append(upVote);
         playlistDisplay.appendChild(songContainer);
+
         return songObj;
       })
       .catch((error) => {
