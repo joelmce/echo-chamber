@@ -1,4 +1,4 @@
-import { renderSong } from './Songs.js';
+import { renderSong } from './render.js';
 import { socket } from '/helpers/socket.js';
 
 function handleSongsSocket() {

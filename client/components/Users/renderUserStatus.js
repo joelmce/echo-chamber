@@ -1,7 +1,9 @@
 import renderLoggedInUser from './loggedInUser.js';
 import renderLoggedOutUser from './loggedOutUser.js';
 
-function renderUserStatus() {
+// TODO: refactor userStatus
+
+function renderUser() {
   fetch('/api/sessions')
     .then((res) => res.json())
     .then(({ success, data: user }) => {
@@ -17,4 +19,4 @@ function renderUserStatus() {
     });
 }
 
-export default renderUserStatus;
+export { renderUser };

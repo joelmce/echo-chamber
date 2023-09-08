@@ -61,8 +61,8 @@ io.on('connection', (socket) => {
   console.log('A new user has connected');
 
   /* On message event send message to the correct room */
-  socket.on('new message', (message, authorName, roomId) => {
-    io.to(roomId).emit('share message', message, authorName);
+  socket.on('new message', (message) => {
+    io.to(message.roomId).emit('share message', message);
   });
 
   /* When a user adds the song to the playlist */
@@ -70,11 +70,11 @@ io.on('connection', (socket) => {
     io.to(song.roomId).emit('share song', song);
   });
 
-  socket.on('join-room', (roomId) => {
-    const rooms = socket.rooms;
-    for (const room of rooms) {
-      if (room !== socket.id) rooms.delete(room);
+  socket.on('join room', ({ roomId }) => {
+    for (const room of socket.rooms) {
+      socket.leave(room);
     }
+
     socket.join(roomId);
   });
 

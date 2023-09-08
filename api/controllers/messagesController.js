@@ -4,14 +4,14 @@ const prisma = require('../database/prismaClient');
  * POST a message to the database in the given room id.
  */
 async function addMessage(req, res) {
-  const { authorId, roomId, content } = req.body;
+  const { roomId, messageContent, messageAuthor } = req.body;
 
   const message = await prisma.message.create({
     data: {
-      messageContent: content,
+      messageContent,
       messageAuthor: {
         connect: {
-          userId: authorId,
+          userId: messageAuthor.userId,
         },
       },
       room: {
@@ -21,6 +21,7 @@ async function addMessage(req, res) {
       },
     },
   });
+
   res.send(message);
 }
 
