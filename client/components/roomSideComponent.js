@@ -1,5 +1,6 @@
 import rooms from './roomList.js';
 import { Room } from './chat/Room.js';
+import { joinRoom } from '/helpers/rooms.js';
 
 function renderRoomsSidebar() {
   const roomsList = document.getElementById('room-list');
@@ -17,8 +18,12 @@ function renderRoomsSidebar() {
         button.classList.add('active-room');
 
         const chatTitle = document.getElementById('chat-title');
+
+        const connectedUserCount = document.getElementById('connected-users');
+
+        console.log(room);
         chatTitle.textContent = room.roomName;
-        new Room(room.roomId, room.roomName);
+        joinRoom(room.roomId);
       });
     });
   });

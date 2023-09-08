@@ -1,7 +1,8 @@
 import { displayMessage } from './displayMessages.js';
-import { User } from '../../helpers/User.js';
-import socket from '/helpers/socket.js';
+import getUser from '../../helpers/getUser.js';
+import { socket } from '/helpers/socket.js';
 import renderPlaylist from '../playlistComponent.js';
+import { addSongToQ } from '../playlistComponent.js';
 
 const url = '/api/message/';
 
@@ -36,6 +37,13 @@ export class Room {
     messages.forEach(({ messageContent, messageAuthor }) => {
       displayMessage(messageContent, messageAuthor.username);
     });
+
+    const songs = await this.getSongs();
+    const playlistDisplay = document.getElementById('playlist-display');
+    playlistDisplay.innerHTML = '';
+    songs.forEach((song) => {
+      addSongToQ(song.songURL);
+    });
   }
 
   /**
@@ -43,7 +51,10 @@ export class Room {
    * @returns {Promise<Object>}
    */
   getMessages() {
-    return fetch(url + Room.roomId).then((res) => res.json());
+    return fetch('/api/message/' + Room.roomId).then((res) => res.json());
+  }
+  getSongs() {
+    return fetch('api/playlist/' + Room.roomId).then((res) => res.json());
   }
 
   /**
@@ -53,18 +64,17 @@ export class Room {
    * is trying to send
    */
   static async sendMessage(content) {
-    // const { userId, username } = User.getUser();
+    const { userId, username } = await getUser();
+    console.log(Room.roomId);
 
     const messageData = {
-      authorId: User.getUserId(),
+      authorId: userId,
       roomId: Room.roomId,
       content: content,
     };
 
-    console.log(messageData);
-
     /* Save message to database */
-    await fetch(url, {
+    await fetch('/api/message/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -73,6 +83,6 @@ export class Room {
     }).then((response) => response.json());
 
     /* Tell the server there is a new message incoming */
-    socket.emit('new message', content, User.getUsername(), Room.roomId);
+    socket.emit('new message', content, username, Room.roomId);
   }
 }

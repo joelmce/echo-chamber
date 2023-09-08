@@ -30,3 +30,5 @@ This was our first time implementing SocketIO in a more complex project outside 
 - Allow users to change their alias
 - Broadcast when a user connects to a room
 - Add rooms dynamically if the user chooses to
+
+**Foad**

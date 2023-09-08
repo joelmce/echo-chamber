@@ -2,7 +2,7 @@
  * Return all the rooms exist on the server
  * @returns {Object}
  */
-export default function rooms() {
+export default async function rooms() {
   const url = `/api/room/`;
 
   const rooms = fetch(url)

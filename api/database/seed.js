@@ -42,7 +42,7 @@ async function main() {
       },
     },
   });
-
+  
   const alexPlaylist = await prisma.playlist.upsert({
     where: { playlistId: 'pl_' },
     update: {},

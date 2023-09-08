@@ -1,5 +1,6 @@
 const prisma = require('../database/prismaClient');
 
+
 /**
  * POST a new playlist to the room
  */
@@ -27,18 +28,15 @@ async function newPlaylist(req, res) {
  * @param {Object} res: songs in playlist
  */
 async function getSongsInPlaylist(req, res) {
-  const { playlistId } = req.params;
+  const { roomId } = req.params;
 
-  const songs = await prisma.playlist.findMany({
+  const room = await prisma.room.findUnique({
     where: {
-      playlistId: Number(playlistId),
-    },
-    select: {
-      songs: true,
+      roomId,
     },
   });
 
-  res.json(songs);
+  res.json(room.songs);
 }
 
 /**
@@ -46,32 +44,29 @@ async function getSongsInPlaylist(req, res) {
  * Add a song to a playlist
  */
 async function addSongToPlaylist(req, res) {
-  const { id } = req.params;
-  const { songLink, songName } = req.body;
+  const song = req.body;
 
-  const addSong = await prisma.playlist.update({
+  const room = await prisma.room.update({
     where: {
-      playlistId: Number(id),
+      roomId: song.roomId,
     },
     data: {
       songs: {
-        push: {
-          songName: songName,
-          songLink: songLink,
-        },
+        push: song,
       },
     },
   });
 
-  res.json(addSong);
+  res.json(room.songs);
 }
 
 async function getYouTubeData(req, res) {
-  const { videoId } = req.params;
+  const { id } = req.params;
   const apiKey = process.env.YOUTUBE_API_KEY;
 
   const response = await fetch(
-    `https://youtube.googleapis.com/youtube/v3/videos?id=${videoId}&key=${apiKey}&part=snippet`
+    `https://youtube.googleapis.com/youtube/v3/videos?id=${id}&key=${apiKey}&part=snippet`
+
   );
   const data = await response.json();
   const title = data.items[0].snippet.title;

@@ -11,16 +11,8 @@ model Room {
   roomId   String    @id @default(dbgenerated("(concat('room_', gen_random_uuid()))::TEXT"))
   roomName String
   users    User[]
-  playlist Playlist?
   Message  Message[]
-}
-
-model Playlist {
-  playlistId   String @id @default(dbgenerated("(concat('pl_', gen_random_uuid()))::TEXT"))
-  playlistName String
-  songs        Json[]
-  room         Room   @relation(fields: [roomId], references: [roomId])
-  roomId       String @unique
+  songs    Json[]
 }
 
 model User {
