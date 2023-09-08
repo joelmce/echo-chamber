@@ -2,7 +2,8 @@ const express = require('express');
 const {
   getSongsByRoomId,
   createSong,
-  updateSongLikes,
+  addLike,
+  removeLike,
   getYouTubeData,
 } = require('../controllers/songsController.js');
 
@@ -14,7 +15,8 @@ const router = express.Router();
  */
 router.get('/:roomId', getSongsByRoomId);
 router.post('/', createSong);
-router.patch('/', updateSongLikes);
+router.patch('/like/:songId', addLike);
+router.patch('/unlike/:songId', removeLike);
 router.get('/youtube-api/:id', getYouTubeData);
 
 module.exports = router;

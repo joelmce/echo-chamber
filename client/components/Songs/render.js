@@ -1,8 +1,9 @@
 import html from '/helpers/html.js';
 import { getAllSongs } from './getAllSongs.js';
 import { handlePlay } from './handlePlay.js';
-import { handleLike } from './handleLike.js';
 import { handleNewSong } from './handleNewSong.js';
+import { toggleLike } from './handleToggleLike.js';
+import { getUser } from '../Users/getUser.js';
 
 function renderSong(song) {
   const playlistDisplay = document.getElementById('playlist-display');
@@ -13,30 +14,43 @@ function renderSong(song) {
 async function renderAllSongs(roomId) {
   const playlistDisplay = document.getElementById('playlist-display');
   const data = await getAllSongs(roomId);
-  const songs = data.map(Song);
+  const { userId } = await getUser();
+  const songs = data.map(Song.bind(null, userId));
   playlistDisplay.replaceChildren(...songs);
 }
 
-function Song(song) {
-  const { songName, likedBy } = song;
+function Song(userId, song) {
+  const isLiked = song.likedBy.includes(userId);
+  const likesCount = song.likedBy.length;
+  const likeClass = isLiked ? 'liked' : '';
+  const likeText = likesCount === 1 ? 'Like' : 'Likes';
 
-  return html('div', { class: 'song', dataset: song }, [
-    html('p', songName, { class: 'song-name' }),
-    html('button', 'Play', {
-      class: 'play-btn',
-      onclick: handlePlay,
-    }),
-    html('button', `${likedBy.length} Like`, {
-      class: 'like-btn',
-      onclick: handleLike,
-    }),
-  ]);
+  return html(
+    'div',
+    {
+      class: 'song',
+      dataset: song,
+      style: { viewTransitionName: song.songId },
+    },
+    [
+      html('p', song.songName, { class: 'song-name' }),
+      html('button', 'Play', {
+        class: 'play-btn',
+        onclick: handlePlay,
+      }),
+      html('button', `${likesCount} ${likeText}`, {
+        class: `like-btn ${likeClass}`,
+        onclick: () => toggleLike(song, isLiked, userId),
+      }),
+    ]
+  );
 }
 
 async function renderPlaylist(room) {
   const playlistSection = document.getElementById('playlist-section');
   const data = await getAllSongs(room.roomId);
-  const songs = data.map(Song);
+  const { userId } = await getUser();
+  const songs = data.map(Song.bind(null, userId));
   const playlist = Playlist(songs);
   playlistSection.replaceWith(playlist);
 }

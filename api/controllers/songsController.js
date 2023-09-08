@@ -1,5 +1,13 @@
 const prisma = require('../database/prismaClient');
 
+// This function is used to format the likedBy array to only include userIds instead of the entire user object
+function formatLikedBy(song) {
+  return {
+    ...song,
+    likedBy: song.likedBy.map((user) => user.userId),
+  };
+}
+
 async function createSong(req, res) {
   const { roomId, songName, urlId } = req.body;
 
@@ -14,11 +22,16 @@ async function createSong(req, res) {
       },
     },
     include: {
-      likedBy: true,
+      likedBy: {
+        select: {
+          userId: true,
+        },
+      },
     },
   });
 
-  res.json(song);
+  const songWithUserIds = formatLikedBy(song);
+  res.json(songWithUserIds);
 }
 
 async function getSongsByRoomId(req, res) {
@@ -29,15 +42,25 @@ async function getSongsByRoomId(req, res) {
       roomId,
     },
     include: {
-      likedBy: true,
+      likedBy: {
+        select: {
+          userId: true,
+        },
+      },
+    },
+    orderBy: {
+      createdAt: 'desc',
     },
   });
 
-  res.json(songs);
+  songs.sort((a, b) => b.likedBy.length - a.likedBy.length);
+  const songsWithUserIds = songs.map(formatLikedBy);
+  res.json(songsWithUserIds);
 }
 
-async function updateSongLikes(req, res) {
-  const { songId, userId } = req.body;
+async function addLike(req, res) {
+  const { songId } = req.params;
+  const { userId } = req.body;
 
   const song = await prisma.song.update({
     where: {
@@ -46,6 +69,26 @@ async function updateSongLikes(req, res) {
     data: {
       likedBy: {
         connect: {
+          userId,
+        },
+      },
+    },
+  });
+
+  res.json(song);
+}
+
+async function removeLike(req, res) {
+  const { songId } = req.params;
+  const { userId } = req.body;
+
+  const song = await prisma.song.update({
+    where: {
+      songId,
+    },
+    data: {
+      likedBy: {
+        disconnect: {
           userId,
         },
       },
@@ -71,6 +114,7 @@ async function getYouTubeData(req, res) {
 module.exports = {
   getSongsByRoomId,
   createSong,
-  updateSongLikes,
+  addLike,
+  removeLike,
   getYouTubeData,
 };

@@ -70,7 +70,7 @@ io.on('connection', (socket) => {
     io.to(song.roomId).emit('share song', song);
   });
 
-  socket.on('like song', (roomId) => {
+  socket.on('update songs', (roomId) => {
     io.to(roomId).emit('update songs', roomId);
   });
 

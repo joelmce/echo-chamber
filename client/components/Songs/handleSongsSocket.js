@@ -1,3 +1,4 @@
+import { startViewTransition } from '../../helpers/startViewTransition.js';
 import { renderAllSongs, renderSong } from './render.js';
 import { socket } from '/helpers/socket.js';
 
@@ -8,7 +9,7 @@ function handleSongSocket() {
 }
 function handleAllSongsSocket() {
   socket.on('update songs', (roomId) => {
-    renderAllSongs(roomId);
+    startViewTransition(() => renderAllSongs(roomId));
   });
 }
 

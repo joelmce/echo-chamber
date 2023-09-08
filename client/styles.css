@@ -183,8 +183,9 @@ h1 {
 
 .like-btn {
 }
-.like-btn.liked {
-  background-color: green;
+
+.liked {
+  background-color: green !important;
 }
 
 .play-btn {
@@ -202,7 +203,6 @@ iframe {
   background-color: green;
   border-radius: var(--border-radius);
 } */
-
 
 .form-title,
 .label,

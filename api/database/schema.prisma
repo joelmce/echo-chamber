@@ -16,12 +16,13 @@ model Room {
 }
 
 model Song {
-  songId   String @id @default(dbgenerated("(concat('song_', gen_random_uuid()))::TEXT"))
-  songName String
-  urlId    String
-  room     Room  @relation(fields: [roomId], references: [roomId])
-  roomId   String
-  likedBy  User[]
+  songId    String @id @default(dbgenerated("(concat('song_', gen_random_uuid()))::TEXT"))
+  createdAt DateTime @default(now())
+  songName  String
+  urlId     String
+  room      Room  @relation(fields: [roomId], references: [roomId])
+  roomId    String
+  likedBy   User[]
 }
 
 model User {
