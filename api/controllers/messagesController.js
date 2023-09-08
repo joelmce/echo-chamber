@@ -30,7 +30,6 @@ async function addMessage(req, res) {
  */
 async function getMessages(req, res) {
   const roomId = req.params.roomId;
-
   const messages = await prisma.message.findMany({
     where: {
       roomId: roomId,

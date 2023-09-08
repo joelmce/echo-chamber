@@ -15,7 +15,6 @@ model Room {
   songs    Json[]
 }
 
-
 model User {
   userId        String    @id @default(dbgenerated("(concat('usr_', gen_random_uuid()))::TEXT"))
   createdAt     DateTime  @default(now())
