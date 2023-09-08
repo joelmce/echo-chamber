@@ -2,7 +2,7 @@
 require('dotenv').config();
 const express = require('express');
 const userRouter = require('./routes/userRouter');
-const playlistRouter = require('./routes/playlistRouter');
+const songsRouter = require('./routes/songsRouter');
 const roomRouter = require('./routes/roomRouter');
 const messageRouter = require('./routes/messageRouter');
 const sessionsRouter = require('./routes/sessionsRouter.js');
@@ -48,7 +48,7 @@ app.use(sessionMiddleware);
 
 /* API routes */
 app.use('/api/users', userRouter);
-app.use('/api/playlist', playlistRouter);
+app.use('/api/songs', songsRouter);
 app.use('/api/room', roomRouter);
 app.use('/api/message', messageRouter);
 app.use('/api/sessions', sessionsRouter);
@@ -68,6 +68,10 @@ io.on('connection', (socket) => {
   /* When a user adds the song to the playlist */
   socket.on('new song', (song) => {
     io.to(song.roomId).emit('share song', song);
+  });
+
+  socket.on('like song', (roomId) => {
+    io.to(roomId).emit('update songs', roomId);
   });
 
   socket.on('join room', ({ roomId }) => {

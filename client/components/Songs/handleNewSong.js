@@ -1,5 +1,5 @@
 import { isValidURL } from '/helpers/isValidURL.js';
-import { parseYouTubeURL } from '/helpers/parseYouTubeURL.js';
+import { parseYouTubeURL } from '../../helpers/parseYouTubeURL.js';
 
 import { addSong } from './addSong.js';
 import { getRoom } from '../Rooms/getRoom.js';
@@ -14,15 +14,13 @@ async function handleNewSong(e) {
   const isInvalidURL = !isValidURL(songUrl);
   if (isEmpty || isInvalidURL) return;
 
-  const { songId, songName } = await parseYouTubeURL(songUrl);
+  const { urlId, songName } = await parseYouTubeURL(songUrl);
   const { roomId } = getRoom();
 
   addSong({
     roomId,
-    songId,
     songName,
-    songUrl,
-    songLikes: 0,
+    urlId,
   });
 
   form.reset();

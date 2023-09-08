@@ -1,9 +1,9 @@
 import { socket } from '/helpers/socket.js';
 import { POST } from '/helpers/http.js';
 
-function addSong(song) {
-  socket.emit('new song', song);
-  POST('/api/playlist', song);
+async function addSong(song) {
+  const newSong = await POST('/api/songs', song);
+  socket.emit('new song', newSong);
 }
 
 export { addSong };

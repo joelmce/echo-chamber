@@ -12,7 +12,16 @@ model Room {
   roomName String
   users    User[]
   Message  Message[]
-  songs    Json[]
+  songs    Song[]
+}
+
+model Song {
+  songId   String @id @default(dbgenerated("(concat('song_', gen_random_uuid()))::TEXT"))
+  songName String
+  urlId    String
+  room     Room  @relation(fields: [roomId], references: [roomId])
+  roomId   String
+  likedBy  User[]
 }
 
 model User {
@@ -24,6 +33,7 @@ model User {
   connectedRoom Room?     @relation(fields: [roomId], references: [roomId])
   roomId        String?
   Message       Message[]
+  likedSongs    Song[]
 }
 
 model Message {

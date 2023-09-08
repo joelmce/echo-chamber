@@ -10,15 +10,23 @@ function renderSong(song) {
   playlistDisplay.append(songElement);
 }
 
+async function renderAllSongs(roomId) {
+  const playlistDisplay = document.getElementById('playlist-display');
+  const data = await getAllSongs(roomId);
+  const songs = data.map(Song);
+  playlistDisplay.replaceChildren(...songs);
+}
+
 function Song(song) {
-  const { songId, songName, songLikes } = song;
+  const { songName, likedBy } = song;
+
   return html('div', { class: 'song', dataset: song }, [
     html('p', songName, { class: 'song-name' }),
     html('button', 'Play', {
       class: 'play-btn',
       onclick: handlePlay,
     }),
-    html('button', `${songLikes} Like`, {
+    html('button', `${likedBy.length} Like`, {
       class: 'like-btn',
       onclick: handleLike,
     }),
@@ -27,7 +35,7 @@ function Song(song) {
 
 async function renderPlaylist(room) {
   const playlistSection = document.getElementById('playlist-section');
-  const data = await getAllSongs(room);
+  const data = await getAllSongs(room.roomId);
   const songs = data.map(Song);
   const playlist = Playlist(songs);
   playlistSection.replaceWith(playlist);
@@ -54,4 +62,4 @@ function Playlist(songs) {
   ]);
 }
 
-export { renderPlaylist, renderSong, Song };
+export { renderPlaylist, renderSong, Song, renderAllSongs };
