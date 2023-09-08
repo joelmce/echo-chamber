@@ -1,5 +1,4 @@
 import { displayMessage } from './displayMessages.js';
-// import { User } from '../../helpers/User.js';
 import getUser from '../../helpers/getUser.js';
 import { socket } from '/helpers/socket.js';
 import renderPlaylist from '../playlistComponent.js';

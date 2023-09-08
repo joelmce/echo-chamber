@@ -1,5 +1,26 @@
 const prisma = require('../database/prismaClient');
 
+
+/**
+ * POST a new playlist to the room
+ */
+async function newPlaylist(req, res) {
+  const { playlistName, roomId } = req.body;
+
+  const playlist = await prisma.playlist.create({
+    data: {
+      playlistName: playlistName,
+      room: {
+        connect: {
+          roomId: roomId,
+        },
+      },
+    },
+  });
+
+  res.json(playlist);
+}
+
 /**
  * GET /api/playlist/:id
  * Returns all the songs in the given playlist
@@ -45,6 +66,7 @@ async function getYouTubeData(req, res) {
 
   const response = await fetch(
     `https://youtube.googleapis.com/youtube/v3/videos?id=${id}&key=${apiKey}&part=snippet`
+
   );
   const data = await response.json();
   const title = data.items[0].snippet.title;
@@ -55,5 +77,6 @@ async function getYouTubeData(req, res) {
 module.exports = {
   getSongsInPlaylist,
   addSongToPlaylist,
+  newPlaylist,
   getYouTubeData,
 };

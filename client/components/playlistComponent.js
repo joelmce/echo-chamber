@@ -72,7 +72,6 @@ export function addSongToQ(song) {
         songContainer.append(songP);
         songContainer.append(upVote);
         playlistDisplay.appendChild(songContainer);
-
         return songObj;
       })
       .catch((error) => {

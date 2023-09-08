@@ -5,8 +5,6 @@ import renderUserStatus from '/components/userStatus/renderUserStatus.js';
 import { handleSongsForm } from '/components/Songs/handleSongsForm.js';
 import { handleSongsSocket } from '/components/Songs/handleSongsSocket.js';
 
-// renderChat();
-// renderPlaylist(1);
 renderRoomsSidebar();
 
 renderUserStatus();
