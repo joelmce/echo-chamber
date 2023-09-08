@@ -1,14 +1,10 @@
 import { isValidURL } from '/helpers/isValidURL.js';
 import { parseYouTubeURL } from '/helpers/parseYouTubeURL.js';
-import { getRoom } from '/helpers/rooms.js';
+
 import { addSong } from './addSong.js';
+import { getRoom } from '../Rooms/getRoom.js';
 
-function handleSongsForm() {
-  const playlistForm = document.getElementById('playlist-form');
-  playlistForm.addEventListener('submit', submitNewSong);
-}
-
-async function submitNewSong(e) {
+async function handleNewSong(e) {
   e.preventDefault();
   const form = e.target;
   const formData = new FormData(form);
@@ -32,4 +28,4 @@ async function submitNewSong(e) {
   form.reset();
 }
 
-export { handleSongsForm };
+export { handleNewSong };

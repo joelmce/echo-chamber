@@ -1,6 +1,6 @@
-import { GET } from '/helpers/http.js';
+import { GET } from '../../helpers/http.js';
 
-async function getAllSongs(roomId) {
+async function getAllSongs({ roomId }) {
   return GET(`/api/playlist/${roomId}`);
 }
 

@@ -106,7 +106,7 @@ chat-section {
 }
 
 .active-room {
-  background-color: red;
+  background-color: red !important;
 }
 
 #rooms-list {
