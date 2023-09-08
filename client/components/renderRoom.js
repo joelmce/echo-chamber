@@ -2,6 +2,7 @@ import { renderAllSongs } from '/components/Songs/Songs.js';
 import { socket } from '/helpers/socket.js';
 import { displayMessage } from './chat/displayMessages.js';
 import { getMessagesInRoom, sendMessage } from '../helpers/messages.js';
+import { connectedUsers } from '../helpers/connectedUsers.js';
 
 function renderRoom(room) {
   renderChat(room);
@@ -13,6 +14,9 @@ async function renderChat(room) {
   const chatForm = document.getElementById('chat-form');
   const chatInput = document.getElementById('chat-input');
   const messages = await getMessagesInRoom(room.roomId);
+
+  const connectedUserCount = document.getElementById('connected-users');
+  connectedUserCount.textContent = room.users;
 
   messages.forEach(({ messageContent, messageAuthor }) => {
     displayMessage(messageContent, messageAuthor.username);

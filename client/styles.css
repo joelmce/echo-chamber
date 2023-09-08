@@ -257,6 +257,23 @@ iframe {
 .input {
 }
 
+#online-users {
+  float: right;
+}
+
+.chat-title {
+  float: left;
+}
+
+.green-dot {
+  color: greenyellow;
+}
+
+.connected-users {
+  color: white;
+  margin-left: 5px;
+}
+
 /*
 -------------- LOGGED IN USER -------------
 <div id="user-status">

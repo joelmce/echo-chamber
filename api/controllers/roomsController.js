@@ -8,6 +8,14 @@ async function getAllRooms(req, res) {
   res.json(allRooms);
 }
 
+async function getConnectUsers(req, res) {
+  const connectedUsers = await prisma.room.findMany({
+    by: 'users',
+  });
+
+  return connectedUsers;
+}
+
 /**
  * Create a room
  */
@@ -37,8 +45,29 @@ async function getRoomById(req, res) {
   res.json(room);
 }
 
+async function userJoinRoom(req, res) {
+  const { roomId, userId } = req.body;
+
+  const joinedRoom = await prisma.user.update({
+    where: {
+      userId: userId,
+    },
+    data: {
+      connectedRoom: {
+        connect: {
+          roomId: roomId,
+        },
+      },
+    },
+  });
+
+  res.json(joinedRoom);
+}
+
 module.exports = {
   getAllRooms,
   getRoomById,
   createRoom,
+  userJoinRoom,
+  getConnectUsers,
 };

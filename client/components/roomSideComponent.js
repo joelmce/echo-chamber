@@ -18,8 +18,11 @@ function renderRoomsSidebar() {
         button.classList.add('active-room');
 
         const chatTitle = document.getElementById('chat-title');
+
+        const connectedUserCount = document.getElementById('connected-users');
+
+        console.log(room);
         chatTitle.textContent = room.roomName;
-        // new Room(room.roomId, room.roomName);
         joinRoom(room.roomId);
       });
     });
