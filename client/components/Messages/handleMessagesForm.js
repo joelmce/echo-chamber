@@ -4,6 +4,9 @@ import { addMessage } from './addMessage.js';
 
 async function handleNewMessage(e) {
   e.preventDefault();
+  const user = await getUser();
+  if (!user) return;
+
   const form = e.target;
   const formData = new FormData(form);
   const messageContent = formData.get('message-content');

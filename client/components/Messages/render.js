@@ -34,7 +34,7 @@ function Chat(room, messages) {
           class: 'input',
           placeholder: 'Send a message',
         }),
-        html('button', 'Send', { class: 'btn' }),
+        html('button', 'Send', { class: 'btn-dark' }),
       ]
     ),
   ]);

@@ -5,24 +5,36 @@ import { handleNewSong } from './handleNewSong.js';
 import { toggleLike } from './handleToggleLike.js';
 import { getUser } from '../Users/getUser.js';
 
-function renderSong(song) {
+async function renderSong(song) {
   const playlistDisplay = document.getElementById('playlist-display');
   const songElement = Song(song);
   playlistDisplay.append(songElement);
+  updateLikes();
 }
 
 async function renderAllSongs(roomId) {
   const playlistDisplay = document.getElementById('playlist-display');
   const data = await getAllSongs(roomId);
-  const { userId } = await getUser();
-  const songs = data.map(Song.bind(null, userId));
+  const songs = data.map(Song);
   playlistDisplay.replaceChildren(...songs);
+  updateLikes();
 }
 
-function Song(userId, song) {
-  const isLiked = song.likedBy.includes(userId);
+async function updateLikes() {
+  const user = await getUser();
+  if (!user) return;
+
+  const songs = document.querySelectorAll('.song');
+  [...songs].forEach((song) => {
+    const songId = song.dataset.songId;
+    const likedBy = song.dataset.likedBy;
+    const isLiked = likedBy.split(',').includes(user.userId);
+    song.classList.toggle('liked', isLiked);
+  });
+}
+
+function Song(song) {
   const likesCount = song.likedBy.length;
-  const likeClass = isLiked ? 'liked' : '';
   const likeText = likesCount === 1 ? 'Like' : 'Likes';
 
   return html(
@@ -39,8 +51,8 @@ function Song(userId, song) {
         onclick: handlePlay,
       }),
       html('button', `${likesCount} ${likeText}`, {
-        class: `like-btn ${likeClass}`,
-        onclick: () => toggleLike(song, isLiked, userId),
+        class: 'like-btn',
+        onclick: () => toggleLike(song),
       }),
     ]
   );
@@ -49,10 +61,10 @@ function Song(userId, song) {
 async function renderPlaylist(room) {
   const playlistSection = document.getElementById('playlist-section');
   const data = await getAllSongs(room.roomId);
-  const { userId } = await getUser();
-  const songs = data.map(Song.bind(null, userId));
+  const songs = data.map(Song);
   const playlist = Playlist(songs);
   playlistSection.replaceWith(playlist);
+  updateLikes();
 }
 
 function Playlist(songs) {
@@ -70,7 +82,7 @@ function Playlist(songs) {
           class: 'input',
           placeholder: 'Add a YouTube URL',
         }),
-        html('button', 'Add', { class: 'btn' }),
+        html('button', 'Add', { class: 'btn-dark' }),
       ]
     ),
   ]);
