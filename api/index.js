@@ -9,16 +9,7 @@ const sessionsRouter = require('./routes/sessionsRouter.js');
 const expressSession = require('express-session');
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 const { PrismaClient } = require('@prisma/client');
-
-/**
- * Initialize the server components
- */
-const app = express();
-const port = process.env.PORT || 3000;
-const domain = process.env.DOMAIN || 'http://localhost';
-const server = app.listen(port, () => {
-  console.log(`Server running on ${domain}:${port}`);
-});
+const { Server } = require('socket.io');
 
 const sessionMiddleware = expressSession({
   cookie: {
@@ -34,16 +25,22 @@ const sessionMiddleware = expressSession({
   }),
 });
 
+/**
+ * Initialize the server components
+ */
+const app = express();
+const port = process.env.PORT || 3000;
+const domain = process.env.DOMAIN || 'http://localhost';
+const server = app.listen(port, () => {
+  console.log(`Server running on ${domain}:${port}`);
+});
 /* initialize socketIO server */
-const { Server } = require('socket.io');
 const io = new Server(server);
 io.engine.use(sessionMiddleware);
 
-/* Serve static files from client folder, use JSON for API requests */
+// middleware
 app.use(express.json());
 app.use(express.static('../client'));
-
-/* Initialize express session */
 app.use(sessionMiddleware);
 
 /* API routes */
@@ -78,14 +75,7 @@ io.on('connection', (socket) => {
     for (const room of socket.rooms) {
       socket.leave(room);
     }
-
     socket.join(roomId);
-  });
-
-  /* Disconnect event  */
-  /* TODO: Add members online */
-  socket.on('disconnect', () => {
-    console.log('client disconnected');
   });
 });
 
