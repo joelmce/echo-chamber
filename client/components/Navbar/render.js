@@ -1,9 +1,9 @@
-import html from '../../helpers/html.js';
-
-import { getAllRooms } from '../Rooms/getAllRooms.js';
-import { joinRoom } from '../Rooms/getRoom.js';
-import { renderUser } from '../Users/renderUserStatus.js';
-import { highlightActiveRoom } from './highlightActiveRoom.js';
+import html from "../../helpers/html.js";
+import { getAllRooms } from "../Rooms/getAllRooms.js";
+import { joinRoom } from "../Rooms/getRoom.js";
+import { renderUser } from "../Users/renderUserStatus.js";
+import { highlightActiveRoom } from "./highlightActiveRoom.js";
+import { addNewRoomButton } from "./newRoom.js";
 
 function renderNavbar() {
   renderAllNavLinks();
@@ -11,15 +11,16 @@ function renderNavbar() {
 }
 
 async function renderAllNavLinks() {
-  const nav = document.getElementById('rooms-list');
+  const nav = document.getElementById("rooms-list");
   const rooms = await getAllRooms();
   const navLinks = rooms.map(NavLink);
-  nav.replaceChildren(...navLinks);
+  const addRoomBtn = addNewRoomButton();
+  nav.replaceChildren(...navLinks, addRoomBtn);
 }
 
 function NavLink(room) {
-  return html('li', room.roomName, {
-    className: 'room-name',
+  return html("li", room.roomName, {
+    className: "room-name",
     onclick: (e) => {
       highlightActiveRoom(e);
       joinRoom(room);
@@ -27,4 +28,4 @@ function NavLink(room) {
   });
 }
 
-export { renderNavbar };
+export { renderNavbar, renderAllNavLinks };
