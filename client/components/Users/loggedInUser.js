@@ -12,8 +12,8 @@ function loggedInUser(username) {
   return html({ id: 'user-status' }, [
     html({ class: 'user' }, [
       html('img', {
-        src: `https://i.pravatar.cc/100?u=${username}`,
-        class: 'user-avatar',
+        src: `https://i.pravatar.cc/200?u=${username}`,
+        class: 'user-avatar-lg',
       }),
       html('p', username, { class: 'user-name' }),
     ]),

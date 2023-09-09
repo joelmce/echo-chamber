@@ -2,12 +2,12 @@ import { getAllMessages } from './getAllMessages.js';
 import { handleNewMessage } from './handleMessagesForm.js';
 import html from '/helpers/html.js';
 
-const AVATAR =
-  'https://dl.openseauserdata.com/cache/originImage/files/547152b481352a23d622d9ec71a568e3.png';
-
 function Message({ messageContent, messageAuthor: { username } }) {
   return html('div', { class: 'message-container' }, [
-    html('img', { class: 'user-avatar', src: AVATAR }),
+    html('img', {
+      class: 'user-avatar',
+      src: `https://i.pravatar.cc/200?u=${username}`,
+    }),
     html('p', `${username} - ${messageContent}`, { class: 'message' }),
   ]);
 }

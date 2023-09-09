@@ -191,6 +191,11 @@ iframe {
 }
 
 .user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
 }
 
 .user-name {
@@ -204,6 +209,11 @@ iframe {
   border-radius: var(--border-radius-full);
   margin-bottom: 1.5rem;
   margin-right: 1rem;
+}
+
+.user-avatar-lg {
+  border-radius: 50%;
+  width: 10rem;
 }
 
 .btn {
